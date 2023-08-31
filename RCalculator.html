@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Geographic Science - Using R as a calculator</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">R for Geographic Science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Intro.html" rel="" target="">
+ <span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Installing.html" rel="" target="">
+ <span class="menu-text">Installing R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./RstudioInt.qmd" rel="" target="">
+ <span class="menu-text">RStudio Interface</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./RCalculator.html">Using R as a calculator</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R coding manual</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Installing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RStudioInt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RCalculator.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Using R as a calculator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Descriptive_Statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descriptive Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Mapping_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choropleth mapping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Classical_Measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classical Measures</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#basic-calculations" id="toc-basic-calculations" class="nav-link active" data-scroll-target="#basic-calculations"><span class="header-section-number">1</span> Basic calculations</a></li>
+  <li><a href="#brackets" id="toc-brackets" class="nav-link" data-scroll-target="#brackets"><span class="header-section-number">2</span> Brackets</a></li>
+  <li><a href="#creating-objects-rs-memory-feature." id="toc-creating-objects-rs-memory-feature." class="nav-link" data-scroll-target="#creating-objects-rs-memory-feature."><span class="header-section-number">3</span> Creating Objects: R’s Memory feature.</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-vector" id="toc-creating-a-vector" class="nav-link" data-scroll-target="#creating-a-vector"><span class="header-section-number">3.1</span> Creating a <strong>vector</strong></a></li>
+  <li><a href="#creating-a-matrix" id="toc-creating-a-matrix" class="nav-link" data-scroll-target="#creating-a-matrix"><span class="header-section-number">3.2</span> Creating a <strong>Matrix</strong></a>
+  <ul class="collapse">
+  <li><a href="#assigning-rowcolumn-names" id="toc-assigning-rowcolumn-names" class="nav-link" data-scroll-target="#assigning-rowcolumn-names"><span class="header-section-number">3.2.1</span> Assigning row/column names</a></li>
+  <li><a href="#renaming-columnsrows" id="toc-renaming-columnsrows" class="nav-link" data-scroll-target="#renaming-columnsrows"><span class="header-section-number">3.2.2</span> Renaming columns/rows</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#introduction-to-summary-statistics" id="toc-introduction-to-summary-statistics" class="nav-link" data-scroll-target="#introduction-to-summary-statistics"><span class="header-section-number">4</span> Introduction to summary statistics</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Using R as a calculator</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="basic-calculations" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Basic calculations</h1>
+<p>As R is a programming language, it responds to series of commands. Are written into the Console (underneath your Script pane). Primarily it can be used a calculator. For example:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>Here, the equation <code>2 + 2</code> is inputted into the console. To execute (or run) this, you can click anywhere along the line of code and click on the run button:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Demo pics/Run.jpg" class="img-fluid" style="width:8.0%"></p>
+</div>
+</div>
+<p>Alternatively, you can hit the following combination of keys on your keyboard when your cursor is place anywhere along that line:</p>
+<ul>
+<li>Windows: Ctrl + Enter</li>
+<li>Mac: Cmd + Enter (or Ctrl + Enter)</li>
+</ul>
+<p>Note that the result of the calculation appears in the console.<br>
+<br>
+An advantage of using a script is that you are able input multiple lines of code and run them together. For example:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(<span class="sc">-</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log2</span>(<span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>Running these together returns a list of outputs.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>sqrt(...)</code>, <code>abs(...)</code>, and <code>log2(...)</code> are base functions featured in R. These and others will be discussed in more detail later in this guide.</p>
+</div>
+</div>
+<div class="callout-exercises">
+<ol type="1">
+<li>Use R to calculate the following equations:</li>
+</ol>
+<p><span class="math display">\[
+2 \times5+6
+\]</span></p>
+<p><span class="math display">\[
+30 \times 30 \times 60
+\]</span></p>
+<p><span class="math display">\[
+\sqrt{\frac{40}{12} \times 50}
+\]</span></p>
+</div>
+</section>
+<section id="brackets" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Brackets</h1>
+<p>Brackets play an import role in R. Fundamentally, they are applied to isolate a calculation or sequence. Consider the following example:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>Versus:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
+<p>When a function such as <code>sqrt</code> is entered, it will contain brackets within which you can specify the values that you want to test. For example:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>) <span class="sc">-</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="creating-objects-rs-memory-feature." class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Creating Objects: R’s Memory feature.</h1>
+<p>Objects are a useful way of containing data including variables and, later on, <em>user-defined functions</em>. They can be assigned unique names but these must not include spaces or, where possible, override existing functions in R.</p>
+<p>Objects can created by using a format similar to <code>result = 2 + 2</code>. You can also store text strings in an object for example <code>text_result = "Jane"</code>.</p>
+<p>An alternative to using the <code>=</code> symbol is <code>&lt;-</code> that is particularly use when you later start to incorporate packages into your coding.</p>
+<section id="creating-a-vector" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="creating-a-vector"><span class="header-section-number">3.1</span> Creating a <strong>vector</strong></h2>
+<p>A vector is a string of values assigned to an object. It is a fundamental feature when it comes to statistical processes. To do this we need to introduce concatenation to denote a <em>series of things</em>, for instance a sequence of numbers. This is enabled using the concatenation function <code>c(...)</code>. Here is an example of how it is applied to a series of numbers:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>my_numerical_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>An example of when applied to a series of characters (text values); double or single quotations convert denote characters:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>my_character_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bertha"</span>, <span class="st">"Collin"</span>, <span class="st">"David"</span>, <span class="st">"Ethan"</span>, <span class="st">"Francis"</span>, <span class="st">"Georgina"</span>, <span class="st">"Helen"</span>, <span class="st">"Iain"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The examples given above contain a couple of other note worthy features.</p>
+<ul>
+<li>A designated name for your <em>object</em>. This is the <code>my_vector</code> part of the coding line.</li>
+<li>An <em>operator</em> that looks like <code>&lt;-</code> that is interchangeable with <code>=</code> sign. Here, we are telling R that our object equates to our specified numerical (or string) vector.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each entry along the figure is separated with a comma <code>,</code></p>
+<p>Whenever you create an object, it appears in your the Global Environment located immediately to the left of your R Script window.</p>
+<p>When you combine numeric and string values into the same vector, its classification becomes ‘character’ rather than numeric.</p>
+<p>When the <code>&lt;-</code> operator points the other way (<code>-&gt;</code>), this denotes that code is being pushed towards an object; typically, this operator is preceded by a pipe <code>%&gt;%</code> operator that consists of a sequence of actions <strong>to be discussed later!</strong>.</p>
+</div>
+</div>
+</section>
+<section id="creating-a-matrix" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="creating-a-matrix"><span class="header-section-number">3.2</span> Creating a <strong>Matrix</strong></h2>
+<p>While a vector is a one-dimensional line of data inputs, a vector is two-dimensional - an array consisting of rows and columns. This differs from a convention Spreadsheet, such as those generated in Microsoft Excel, as calculations are not automatically generated.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-temp" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;1: Average temperature (ºC) recorded in Bristol, 2022</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">months</th>
+<th style="text-align: right;">temperature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Jan</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Feb</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mar</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Apr</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">May</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jun</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jul</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Aug</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sep</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oct</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nov</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dec</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>To create a matrix you’ll first need a two vectors. Let’s take the monthly average temperatures recorded in Waddington during 2020, 2022, and 2023 as an example @. The first vector, <strong>months</strong>, will contain abbreviated calendar months; the second vector will contain relative <strong>temperature</strong> (high)values in Celsius (ºC), see <a href="#tbl-temp">Table&nbsp;1</a>. The code for these is as follows:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>months <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Year_2020 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">9.2</span>, <span class="fl">9.7</span>, <span class="fl">10.6</span>, <span class="fl">15.7</span>, <span class="fl">18.4</span>, <span class="fl">19.8</span>, <span class="fl">20.2</span>, <span class="fl">22.0</span>, <span class="fl">18.9</span>, <span class="fl">13.4</span>, <span class="fl">11.4</span>, <span class="fl">6.9</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>Year_2021 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">7.9</span>, <span class="dv">11</span>, <span class="fl">11.2</span>, <span class="fl">14.5</span>, <span class="fl">19.9</span>, <span class="fl">22.5</span>, <span class="fl">20.3</span>, <span class="fl">20.7</span>, <span class="fl">15.3</span>, <span class="fl">10.6</span>, <span class="fl">8.3</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>Year_2022 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.6</span>, <span class="fl">10.0</span>, <span class="fl">12.1</span>, <span class="fl">13.9</span>, <span class="fl">17.8</span>, <span class="fl">20.7</span>, <span class="fl">24.5</span>, <span class="fl">24.5</span>, <span class="fl">19.0</span>, <span class="fl">16.7</span>, <span class="fl">11.3</span>, <span class="fl">6.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>To create the matrix, you can compile vectors using either the <code>rbind(...)</code> or the <code>cbind(...)</code> functions. Here is how <code>cbind(...)</code> is applied:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Temperature_matrix <span class="ot">&lt;-</span> <span class="fu">cbind</span>(Year_2020, Year_2021, Year_2022)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Temperature_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Year_2020 Year_2021 Year_2022
+ [1,]       9.2       5.1       7.6
+ [2,]       9.7       7.9      10.0
+ [3,]      10.6      11.0      12.1
+ [4,]      15.7      11.2      13.9
+ [5,]      18.4      14.5      17.8
+ [6,]      19.8      19.9      20.7
+ [7,]      20.2      22.5      24.5
+ [8,]      22.0      20.3      24.5
+ [9,]      18.9      20.7      19.0
+[10,]      13.4      15.3      16.7
+[11,]      11.4      10.6      11.3
+[12,]       6.9       8.3       6.3</code></pre>
+</div>
+</div>
+<p>If we were to use the <code>rbind(...)</code> function, the result is completely different. For example:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Temperature_matrix_2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Year_2020, Year_2021, Year_2022)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Temperature_matrix_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+Year_2020  9.2  9.7 10.6 15.7 18.4 19.8 20.2 22.0 18.9  13.4  11.4   6.9
+Year_2021  5.1  7.9 11.0 11.2 14.5 19.9 22.5 20.3 20.7  15.3  10.6   8.3
+Year_2022  7.6 10.0 12.1 13.9 17.8 20.7 24.5 24.5 19.0  16.7  11.3   6.3</code></pre>
+</div>
+</div>
+<p>The method you prefer to use is entirely up to you. Here, it can be determined that the numerical values refer to a specific month in the year.</p>
+<p>It is work noting how they are presented for example <code>[1,]</code> or <code>[,1]</code>. These appear in this manner are they indicate the dimension of the data, as we are dealing with two-dimensional data; there are two numbers present within the square brackets (crochets). As stated earlier, the two-dimensions present here are <em>rows</em> and <em>columns</em>, therefore, think of the brackets as showing <strong>[rows, columns]</strong>, the number numbers act as coordinates for your data. Using the <code>dim(...)</code> function, it is possible to preview the dimensions of a respective matrix.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Temperature_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12  3</code></pre>
+</div>
+</div>
+<p>From this result, we learn that the matrix has 12 rows and 3 columns.</p>
+<p>If you wanted to retrieve the 5th row for Waddington’s 2021 temperature data, you can write the following the console for the first matrix:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Temperature_matrix[<span class="dv">5</span>,<span class="st">"Year_2021"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Year_2021 
+     14.5 </code></pre>
+</div>
+</div>
+<p>For the second matrix…</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Temperature_matrix_2[<span class="st">"Year_2021"</span>, <span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Year_2021 
+     14.5 </code></pre>
+</div>
+</div>
+<p>This process of previewing the data is beginning of what is referred to as ‘slicing’. This process will be covered in more detail in the next section of this <strong>resource</strong>.</p>
+<section id="assigning-rowcolumn-names" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="assigning-rowcolumn-names"><span class="header-section-number">3.2.1</span> Assigning row/column names</h3>
+<p>The matrixes we have created are missing the names of the months. These are instead numbers that aren’t particularly useful to someone seeing this data for the first time, and out of context. To address this issue, we can using the either the <code>row.names(...)</code> or <code>colnames(...)</code> functions to address this flaw.</p>
+<p>For the first matrix, <em>Temperature_matrix</em>, the <code>row.names(...)</code> function can be applied using the months vector that was created earlier. The method is as follows:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(Temperature_matrix) <span class="ot">&lt;-</span> months</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>Temperature_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Year_2020 Year_2021 Year_2022
+Jan       9.2       5.1       7.6
+Feb       9.7       7.9      10.0
+Mar      10.6      11.0      12.1
+Apr      15.7      11.2      13.9
+May      18.4      14.5      17.8
+Jun      19.8      19.9      20.7
+Jul      20.2      22.5      24.5
+Aug      22.0      20.3      24.5
+Sep      18.9      20.7      19.0
+Oct      13.4      15.3      16.7
+Nov      11.4      10.6      11.3
+Dec       6.9       8.3       6.3</code></pre>
+</div>
+</div>
+<p>For the second matrix, <em>Temperature_matrix_2</em>, the column names are missing and are corrected with the following:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Temperature_matrix_2) <span class="ot">&lt;-</span> months</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>Temperature_matrix_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov Dec
+Year_2020 9.2  9.7 10.6 15.7 18.4 19.8 20.2 22.0 18.9 13.4 11.4 6.9
+Year_2021 5.1  7.9 11.0 11.2 14.5 19.9 22.5 20.3 20.7 15.3 10.6 8.3
+Year_2022 7.6 10.0 12.1 13.9 17.8 20.7 24.5 24.5 19.0 16.7 11.3 6.3</code></pre>
+</div>
+</div>
+</section>
+<section id="renaming-columnsrows" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="renaming-columnsrows"><span class="header-section-number">3.2.2</span> Renaming columns/rows</h3>
+<p>The names in the <em>Temperature_matrix</em> aren’t well formatted (i.e.&nbsp;Year_2020) - we want to remove the underscore between Year and 2020, and do the same for the other columns. Here, we can use the <code>colnames(...)</code> function to override these names. The process involves the manipulation of the matrix’s dimensions and is as follows:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Temperature_matrix)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Year 2020"</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Temperature_matrix)[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"Year 2021"</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Temperature_matrix)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="st">"Year 2022"</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>Temperature_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Year 2020 Year 2021 Year 2022
+Jan       9.2       5.1       7.6
+Feb       9.7       7.9      10.0
+Mar      10.6      11.0      12.1
+Apr      15.7      11.2      13.9
+May      18.4      14.5      17.8
+Jun      19.8      19.9      20.7
+Jul      20.2      22.5      24.5
+Aug      22.0      20.3      24.5
+Sep      18.9      20.7      19.0
+Oct      13.4      15.3      16.7
+Nov      11.4      10.6      11.3
+Dec       6.9       8.3       6.3</code></pre>
+</div>
+</div>
+<p>To change the row names, the process is similar but relies on the <code>row.names(....)</code> function. However, this time, its worth giving the concatenation function a go to produce a more concise line of code:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(Temperature_matrix_2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Year 2020"</span>, <span class="st">"Year 2021"</span>, <span class="st">"Year 2022"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Temperature_matrix_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov Dec
+Year 2020 9.2  9.7 10.6 15.7 18.4 19.8 20.2 22.0 18.9 13.4 11.4 6.9
+Year 2021 5.1  7.9 11.0 11.2 14.5 19.9 22.5 20.3 20.7 15.3 10.6 8.3
+Year 2022 7.6 10.0 12.1 13.9 17.8 20.7 24.5 24.5 19.0 16.7 11.3 6.3</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Renaming columns and rows can be carried out in a variety of ways. The method described above is the <strong>base</strong> approach, later, similar processes will be carried out using <strong>tidy</strong> methodical approaches.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="introduction-to-summary-statistics" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Introduction to summary statistics</h1>
+<p>With vector and matrix data stored in R’s Global Environment, it is possible to examine it with summary statistics. In R, this is relatively straightfoward so long as you have a good grounding in the statistical arm of mathematics. Perhaps the simplist function is the <code>sum(...)</code> function that work in exactly the way as it does in Microsoft Excel.</p>
+<p>If, for some reason, you wanted to calculate the total temperature for the vector <em>Year_2020</em>, you’ll do the following:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(Year_2020)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 176.2</code></pre>
+</div>
+</div>
+<p>Using the <code>mean(...)</code> function, it is possible to calculate the average temperature for that year, that may be a far more useful exercise…</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Year_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13.94167</code></pre>
+</div>
+</div>
+<p>However, what if we wanted to calculate the average temperature for the month of August across the years 2020, 2021, and 2022? We are able to conduct the same function on the matrix, taking care to specify the correct dimensions:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtaining the correct 'slice' for our data:</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>Temperature_matrix[<span class="dv">5</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Year 2020 Year 2021 Year 2022 
+     18.4      14.5      17.8 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the average by wrapping the slice with the mean(...) function</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Temperature_matrix[<span class="dv">5</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.9</code></pre>
+</div>
+</div>
+<p>At this point, it’s taking note of the <code>summary(...)</code> function in R. This function flexibly provides a collection of useful summary statistics for a vector, matrix array, or a data frame.</p>
+<p>When applied to <em>Year_2022</em> vector, the following information is shown.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Year_2022)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   6.30   10.97   15.30   15.37   19.43   24.50 </code></pre>
+</div>
+</div>
+<p>Here, we have the minimum value, the first and third quartile, median (middle of the data), and the mean average.</p>
+<p>When applied to the <em>Temperature_matrix</em>, we are given same information in a tabulated form (per column).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Temperature_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Year 2020       Year 2021       Year 2022    
+ Min.   : 6.90   Min.   : 5.10   Min.   : 6.30  
+ 1st Qu.:10.38   1st Qu.:10.03   1st Qu.:10.97  
+ Median :14.55   Median :12.85   Median :15.30  
+ Mean   :14.68   Mean   :13.94   Mean   :15.37  
+ 3rd Qu.:19.12   3rd Qu.:20.00   3rd Qu.:19.43  
+ Max.   :22.00   Max.   :22.50   Max.   :24.50  </code></pre>
+</div>
+</div>
+<p>For the <em>Temperature_matrix_2</em> matrix, we are given basic summary statistics across the three years per calendar month</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Temperature_matrix_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Jan            Feb             Mar             Apr             May       
+ Min.   :5.10   Min.   : 7.90   Min.   :10.60   Min.   :11.20   Min.   :14.50  
+ 1st Qu.:6.35   1st Qu.: 8.80   1st Qu.:10.80   1st Qu.:12.55   1st Qu.:16.15  
+ Median :7.60   Median : 9.70   Median :11.00   Median :13.90   Median :17.80  
+ Mean   :7.30   Mean   : 9.20   Mean   :11.23   Mean   :13.60   Mean   :16.90  
+ 3rd Qu.:8.40   3rd Qu.: 9.85   3rd Qu.:11.55   3rd Qu.:14.80   3rd Qu.:18.10  
+ Max.   :9.20   Max.   :10.00   Max.   :12.10   Max.   :15.70   Max.   :18.40  
+      Jun             Jul             Aug             Sep       
+ Min.   :19.80   Min.   :20.20   Min.   :20.30   Min.   :18.90  
+ 1st Qu.:19.85   1st Qu.:21.35   1st Qu.:21.15   1st Qu.:18.95  
+ Median :19.90   Median :22.50   Median :22.00   Median :19.00  
+ Mean   :20.13   Mean   :22.40   Mean   :22.27   Mean   :19.53  
+ 3rd Qu.:20.30   3rd Qu.:23.50   3rd Qu.:23.25   3rd Qu.:19.85  
+ Max.   :20.70   Max.   :24.50   Max.   :24.50   Max.   :20.70  
+      Oct             Nov             Dec       
+ Min.   :13.40   Min.   :10.60   Min.   :6.300  
+ 1st Qu.:14.35   1st Qu.:10.95   1st Qu.:6.600  
+ Median :15.30   Median :11.30   Median :6.900  
+ Mean   :15.13   Mean   :11.10   Mean   :7.167  
+ 3rd Qu.:16.00   3rd Qu.:11.35   3rd Qu.:7.600  
+ Max.   :16.70   Max.   :11.40   Max.   :8.300  </code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

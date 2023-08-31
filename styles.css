@@ -1,0 +1,59 @@
+/* css styles */
+
+.classWithPad {
+  margin: 10px; padding: 10px;
+}
+
+img, svg {
+    vertical-align: right;
+}
+
+pre {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    overflow: auto;
+    font-size: 0.875em;
+    color: #b01c2e;
+    background-color: #f6f6f6;
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    overflow-y: hidden
+}
+
+.navbar-dark {
+    background-color: #b01c2e;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+    border-left: 1px solid #b01c2e;
+    color: #b01c2e !important;
+}
+
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 2rem;
+    color: #b01c2e;
+    text-decoration: none;
+    -webkit-text-decoration: none;
+    -moz-text-decoration: none;
+    -ms-text-decoration: none;
+    -o-text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+a {
+    color: #b01c2e;
+    text-decoration: underline;
+    -webkit-text-decoration: underline;
+    -moz-text-decoration: underline;
+    -ms-text-decoration: underline;
+    -o-text-decoration: underline;
+}
+
+.figure-caption {
+    font-size: 0.875em;
+    color: #77b8bf;
+}

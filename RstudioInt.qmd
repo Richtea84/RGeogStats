@@ -1,0 +1,76 @@
+---
+title: "Understanding RStudio"
+---
+
+# RStudio's Interface
+
+RStudio is an Intergrated Development Environment (IDE). That is, it facilitates the development of data analyses, reports, and software based primarily on the R coding language. When required, it is able to incorporate syntaxes from other programming languages such as Python, Bash, CSS, LaTeX and others.
+
+Unlike the core R language, RStudio features a range of ergonomic and skeuomorphic features - buttons and menus that aid in the implementation of R in programming scenarios. However, relying on these features can actually make it harder to understand R when it comes to using more sophisticated processes. Therefore, to quickly become good at RStudio, you should stick to coding in the console or script as much as possible.
+
+By default, the RStudio interface is divided into 3 panels
+
+-   The console (along with the terminal and background jobs)
+-   The Global Environment (along with History, Connections, Build, and Tutorials)
+-   The Plots *viewer* (along with fields)
+
+```{r fig-1, echo=FALSE, fig.cap = "The default RStudio Interface"}
+
+knitr::include_graphics("Demo pics/DefaultR.jpg")
+```
+
+For the time being, you only need to pay attention to the following parts of RStudio's interface:
+
+-   The console
+-   The Environment
+-   The Files tab
+-   The Plots tab
+
+##    The console
+
+The console contains a cursor after a `>` symbol. Here, various lines of code can be entered directly into R - this feature is known as the **command line prompt**. It is often used to carry out quick operations.
+
+Remember the R language is primarily geared towards statistics. Therefore, at its heart, is a large and sophisticated calculator.
+
+##    The Environment
+
+Later in this manual, you will be asked to create a script that renders objects. These objects are essentially stored in the Global Environment, located in the Environment pane in RStudio.
+
+##    The Files tab
+
+Located in the bottom-right, The files window displays your file directory. It contains a range of icons that enable you create new folders within your file directory, add/delete/rename files, and also set your working directory. 
+
+:::{.callout-tip}
+You can click on the three dots `...` towards the extreme right to manually navigate to an area where you want to save and/or access your files.
+:::
+
+##    The Plots tab
+
+This is where any 2D/non-interactive graphics you produce in R will appear. You are able to save (or export) your graphics from this tab.
+
+Interactive and 3D graphics typically appear in the 'viewer' tab. This is a feature that is explored later in the manual.
+
+#   Getting started
+
+A good first step in R is to create a script. This can be done by clicking in the **'File'** drop down menu in the upper lefthand corner of your screen, selecting **'New File'** and then  **'R Script'**. The layout of RStudio will expand from 3 to 4 panes @fig-2; the RScript will be placed immediately above the console in the upper lefthand corner. It is automatically assigned the name 'Untitled'.
+
+```{r fig-2, echo=FALSE, fig.cap = "Adding a script to the user interface"}
+knitr::include_graphics("Demo pics/DefaultR_2.jpg")
+```
+
+In the next chapter we will create 'lines' of code in an R Script.
+
+:::{.callout-exercises}
+**Stage 1**
+
+1.    Install both R and RStudio onto your computer.
+2.    Before opening RStudio, set up a folder in a valid working directory (such as your OneDrive). The easy it is navigate to, the better.
+3.    Launch RStudio. This can be found by searching for the name of the app in the start menu (Windows) or by searching through your launchpad (Mac).
+4.    In the upper lefthand corner of your screen, click on the **'File'** drop down menu and then **'New Project'**. A dialogue box will appear asking whether you want to save your current workspace - the answer is inconsequential; normally, I click 'yes'.
+5.    Click the <u>second option</u> that allows you to save your project to an existing directory.
+6.    When the browser window appears, navigate to the working directory you created in step 2 and click OK. A new RStudio session will launch. <span style="color:darkgreen">**Note:** files will not appear in the browser window</span>.
+
+**Stage 2**
+
+7.    In your new RStudio session, create a new script by clicking. Again on the **'File'** drop down menu, seclect **'New File'** and **'R Script'**.
+:::

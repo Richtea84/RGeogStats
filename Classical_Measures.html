@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Geographic Science - Classical Measures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">R for Geographic Science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Intro.html" rel="" target="">
+ <span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Installing.html" rel="" target="">
+ <span class="menu-text">Installing R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./RstudioInt.qmd" rel="" target="">
+ <span class="menu-text">RStudio Interface</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Classical_Measures.html">Classical Measures</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R coding manual</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Installing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RStudioInt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RCalculator.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using R as a calculator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Descriptive_Statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descriptive Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Mapping_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choropleth mapping</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Classical_Measures.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Classical Measures</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-Vis" id="toc-sec-Vis" class="nav-link active" data-scroll-target="#sec-Vis"><span class="header-section-number">1</span> Visualising distirbutions (Tukey’s Steam &amp; Leaf plot)</a>
+  <ul class="collapse">
+  <li><a href="#the-median" id="toc-the-median" class="nav-link" data-scroll-target="#the-median"><span class="header-section-number">1.1</span> The median</a></li>
+  <li><a href="#comparing-distributions" id="toc-comparing-distributions" class="nav-link" data-scroll-target="#comparing-distributions"><span class="header-section-number">1.2</span> Comparing distributions</a></li>
+  <li><a href="#when-to-use-a-stem-leaf-plot" id="toc-when-to-use-a-stem-leaf-plot" class="nav-link" data-scroll-target="#when-to-use-a-stem-leaf-plot"><span class="header-section-number">1.3</span> When to use a Stem &amp; Leaf plot</a></li>
+  <li><a href="#central-tendency" id="toc-central-tendency" class="nav-link" data-scroll-target="#central-tendency"><span class="header-section-number">1.4</span> Central Tendency</a>
+  <ul class="collapse">
+  <li><a href="#gaussian-normal-distributions" id="toc-gaussian-normal-distributions" class="nav-link" data-scroll-target="#gaussian-normal-distributions"><span class="header-section-number">1.4.1</span> Gaussian normal distributions</a></li>
+  <li><a href="#dealing-with-outliers" id="toc-dealing-with-outliers" class="nav-link" data-scroll-target="#dealing-with-outliers"><span class="header-section-number">1.4.2</span> Dealing with outliers</a></li>
+  <li><a href="#the-trimmed-mean" id="toc-the-trimmed-mean" class="nav-link" data-scroll-target="#the-trimmed-mean"><span class="header-section-number">1.4.3</span> The trimmed mean</a></li>
+  </ul></li>
+  <li><a href="#spread" id="toc-spread" class="nav-link" data-scroll-target="#spread"><span class="header-section-number">1.5</span> Spread</a>
+  <ul class="collapse">
+  <li><a href="#a-description-of-variance" id="toc-a-description-of-variance" class="nav-link" data-scroll-target="#a-description-of-variance"><span class="header-section-number">1.5.1</span> A description of variance</a></li>
+  <li><a href="#standard-deviation-as-measure-of-spread" id="toc-standard-deviation-as-measure-of-spread" class="nav-link" data-scroll-target="#standard-deviation-as-measure-of-spread"><span class="header-section-number">1.5.2</span> Standard deviation as measure of spread</a></li>
+  </ul></li>
+  <li><a href="#probability-functions" id="toc-probability-functions" class="nav-link" data-scroll-target="#probability-functions"><span class="header-section-number">1.6</span> Probability functions</a>
+  <ul class="collapse">
+  <li><a href="#z-scores" id="toc-z-scores" class="nav-link" data-scroll-target="#z-scores"><span class="header-section-number">1.6.1</span> Z-scores</a></li>
+  <li><a href="#q-q-plots" id="toc-q-q-plots" class="nav-link" data-scroll-target="#q-q-plots"><span class="header-section-number">1.6.2</span> Q-Q plots</a></li>
+  <li><a href="#the-shapiro-wilk-test" id="toc-the-shapiro-wilk-test" class="nav-link" data-scroll-target="#the-shapiro-wilk-test"><span class="header-section-number">1.6.3</span> The Shapiro-Wilk test</a></li>
+  <li><a href="#the-anderson-darling-test" id="toc-the-anderson-darling-test" class="nav-link" data-scroll-target="#the-anderson-darling-test"><span class="header-section-number">1.6.4</span> The Anderson-Darling test</a></li>
+  <li><a href="#the-kolgomorov-smirnov-test" id="toc-the-kolgomorov-smirnov-test" class="nav-link" data-scroll-target="#the-kolgomorov-smirnov-test"><span class="header-section-number">1.6.5</span> The Kolgomorov-Smirnov Test</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Classical Measures</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>The previous section in this website introduced you to summary statistics. Examining these in R allows you to make early descriptions of your data. The data featured below shows 99 randomly generated numbers between 1 and 64 using the <code>runif(...)</code> function:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>some_data <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">99</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">64</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(some_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  5.369738 52.519838 60.385169 17.971058 11.668932  3.135424 12.263455
+ [8] 41.424918  2.441298  1.524464 25.739923 52.274475 24.703653 24.991168
+[15] 17.689858 28.678062 29.829251 35.064575 42.937829  8.100033 14.757132
+[22] 50.633690  7.164741 45.719319 14.722852 17.880446 32.800381 12.880976
+[29] 28.684047 43.198616 16.175644 57.275688 56.613652 52.285985 40.895670
+[36] 60.288515 44.716420 54.153241 25.232601 25.641187 38.074355 34.420083
+[43] 62.591061 13.451925 54.186237  6.986759 25.012513  3.890700 10.615302
+[50] 49.807246 25.858946 23.775325 27.528673 21.286726 35.786132 62.189724
+[57] 36.151500 37.171130 41.404934 52.908786 48.239816 28.383821 62.794743
+[64] 36.019185 19.537367 11.054198  9.958532 48.377683 23.350914 49.127825
+[71] 20.768646 46.030605 39.320316 25.172236 20.894582 61.059193 50.618505
+[78] 45.212050 10.927577 52.380595 35.133768 56.301209  8.802048 16.294423
+[85] 46.260043 17.514489  4.483030 56.304066 24.867523  7.412225 43.427489
+[92] 10.727022 11.349098 24.085778 37.246710 32.193896 49.368178 24.419172
+[99] 20.602320</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>runif(...)</code> function is interpreted as <strong>r</strong>andom <strong>unif</strong>orm data. It’s arguments are:</p>
+<ul>
+<li><strong>n</strong>: The number of observations</li>
+<li><strong>min</strong>: The minimum value for the data range</li>
+<li><strong>max</strong>: The maximum value for the data range</li>
+</ul>
+<p>The <code>set.seed(...)</code> function calibrates the random number generator state. In other words, it ensures that same values are present if ran on another computer.</p>
+</div>
+</div>
+<p>To find the average number from this series, the function <code>mean(...)</code> can be used on the data. For example:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(some_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31.30861</code></pre>
+</div>
+</div>
+<p>There are various <em>classical measures</em> used in statistics to describe data and these will be discussed in this section. These include averages, central tendency, variability, scatter, and variation.</p>
+<section id="sec-Vis" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Visualising distirbutions (Tukey’s Steam &amp; Leaf plot)</h1>
+<p>Traditionally, when data is first received, a good first step is to exam its shape (or distribution). Doing this develops an understanding of whether the data features a mostly high, low, or middle data values. A method of visualising this in R is the Tukey’s <em>Stem and Leaf</em> plot <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">1977</a>)</span>. This can quickly produced in R using the <code>stem(...)</code> function. Applied to the random numbers generated above, the process and result are as follows:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the <code>stem(...)</code> function, <code>x =</code> is used to refer to the data vector. This is typically the case in R and most of its packages when dealing with a string of values.</p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stem</span>(<span class="at">x =</span> some_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  The decimal point is 1 digit(s) to the right of the |
+
+  0 | 22344577789
+  1 | 011111223355668888
+  2 | 0111134445555556668899
+  3 | 0234556667789
+  4 | 111333556668899
+  5 | 01122233446677
+  6 | 001233</code></pre>
+</div>
+</div>
+<p>Essentially, the plot above is using all of the recorded values by their whole number to the left of the bar <code>|</code>; to the right of the bar are first decimal places of each occurrence. For example, the first row shows: <code>0 | 1234555666799</code>, this translates to the following sequence of decimal numbers:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  2  2  3  4  4  5  7  7  7  8  9 10 11</code></pre>
+</div>
+</div>
+<p>The original data values being:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1.524464  2.441298  3.135424  3.890700  4.483030  5.369738  6.986759
+ [8]  7.164741  7.412225  8.100033  8.802048  9.958532 10.615302</code></pre>
+</div>
+</div>
+<p>Therefore, From the data distribution, its quickly obvious that there is a peak at in observations with values ranging between 20-29.</p>
+<section id="the-median" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-median"><span class="header-section-number">1.1</span> The median</h2>
+<p>From the stem and leaf plot featured in <a href="#sec-Vis">Section&nbsp;1</a>, it is possible to calculate the middle point of the data known as the <strong>median</strong>. Equation is as follows:</p>
+<p><span id="eq-1"><span class="math display">\[
+\mu = X\begin{bmatrix}\frac{n+1}{2}\end{bmatrix}
+\tag{1}\]</span></span></p>
+<p>Here, <span class="math inline">\(\mu\)</span> represents the median (the value), <span class="math inline">\(X\)</span> is the ordered list of numbers (as featured in the Stem and Leaf plot), <span class="math inline">\(n\)</span> is the number of observations.</p>
+<p>The process is involves counting the number of observations plus 1 and dividing that number by 2. The data we’ve been examining so far has 99 observations (<span class="math inline">\(n\)</span> = 99), so we can begin to solve the equation:</p>
+<p><span id="eq-2"><span class="math display">\[
+\begin{align}
+\mu &amp; = X\begin{bmatrix}\frac{99+1}{2}\end{bmatrix}
+\\
+\\
+&amp; = X[50]
+\end{align}
+\tag{2}\]</span></span></p>
+<p>Therefore, at our 50th observation, we’ll find our median. Doing this from the Stem and Leaf plot in <a href="#sec-Vis">Section&nbsp;1</a> gives us the value of approximately (~) 20.9. However, with R, we can obtain a more precise figure using the <code>median(...)</code> function. For example:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="at">x =</span> some_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28.67806</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Calculating the median by hand for even data…</p>
+<p>The <span class="math inline">\(\mu\)</span> process above works well with an odd number of observations. However, it differences slightly when dealing with an even number of observations, where the equation becomes (<span class="math inline">\(\mu'\)</span>):</p>
+<p><span id="eq-3"><span class="math display">\[
+\mu' = \frac{X\begin{bmatrix}\frac{n}{2}\end{bmatrix}+X{\begin{bmatrix}\frac{n}{2}+1\end{bmatrix}}}{2}
+\tag{3}\]</span></span></p>
+<p>That is to say, you first need to find the divide your the number of your observation into two and add that value to your previous previous result with an additional unit. This is then divided into two. For 100 observations:</p>
+<p><span id="eq-4"><span class="math display">\[
+\begin{align}
+\mu' &amp; = \frac{X\begin{bmatrix}\frac{100}{2}\end{bmatrix}+X{\begin{bmatrix}\frac{100}{2}+1\end{bmatrix}}}{2}
+\\
+\\
+&amp; = \frac{X\begin{bmatrix}50\end{bmatrix}+X{\begin{bmatrix}50+1\end{bmatrix}}}{2}
+\\
+\\
+&amp; = X\begin{bmatrix}\frac{101}{2}\end{bmatrix}
+\\
+\\
+&amp; = X[50.5]
+\end{align}
+\tag{4}\]</span></span></p>
+<p>The median will lie between the 50th and 51st observations. In R, the <code>median(...)</code> function works for both even and uneven vector sizes.</p>
+</div>
+</div>
+</section>
+<section id="comparing-distributions" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="comparing-distributions"><span class="header-section-number">1.2</span> Comparing distributions</h2>
+<p>There may be instances, where you’d want to compare distributions. For example, One set of randomly regenerated data vs.&nbsp;another. As R isn’t able to do this on its own, this process can be achieved by using the <code>stem.leaf.backback(...)</code> function from the <code>aplpack</code> <strong>package</strong>.</p>
+<p>Let’s use it to compare the results of two randomly sampled data values (<span class="math inline">\(n\)</span> = 99) for set at different seeds…</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To load the package in R type...</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chooseCRANmirror</span>(<span class="at">ind =</span> <span class="dv">68</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(aplpack)) <span class="fu">install.packages</span>(<span class="st">"aplpack"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calibrating the comparative data</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>more_data <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">99</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">64</span>) </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># rendering the result</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stem.leaf.backback</span>(<span class="at">x =</span> some_data, <span class="at">y =</span> more_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>_______________________________________________
+  1 | 2: represents 12, leaf unit: 1 
+            some_data      more_data        
+_______________________________________________
+    5           43321| 0* |122234          6   
+   12         9887765| 0. |56666779       14   
+   23     44322111000| 1* |000133         20   
+   30         9777766| 1. |5556899        27   
+   41     44444331000| 2* |111123334      36   
+  (11)    98887555555| 2. |5566667789999  49   
+   47             422| 3* |0024           (4)  
+   44       987766555| 3. |5556677888999  46   
+   35         4332110| 4* |000112333      33   
+   28       999886655| 4. |56789          24   
+   19       442222200| 5* |111            19   
+   10            7666| 5. |566788899      16   
+    6          222100| 6* |0001133         7   
+                     | 6. |                    
+                     | 7* |                    
+_______________________________________________
+n:                 99      99               
+_______________________________________________</code></pre>
+</div>
+</div>
+<p>The results are a little more complex but consistent with Tukey’s notation <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">1977</a>)</span>, where he describes the process as <em>scratching down</em> numbers, to get a feel of what they like (ibid.). Here is single (*) is a one-digit leaf - a single decimal point - for the starting half of rounded numbers: <strong>.0 - .4</strong>; the (.) cover the remaining half of the rounded values: <strong>.5 - .9.</strong> these are the extreme columns are the sum totals towards the median of the data for each row of observations (left and right). Again, this gives a good indication distribution’s shape. Here, We can see the medians differ slightly for each vector. For ‘some_data’, the median is <code>median(some_data)</code>, for ‘more data’, <code>median(more_data)</code>. From the graphic, we learn that these figures can be found at around the 11th observation of the range of 25-29 (.) for ‘some_data’, while the median is located at 4th count of the of the range between 30 and 34 (*). Towards the bottom, are are the total number of observations for each variable.</p>
+</section>
+<section id="when-to-use-a-stem-leaf-plot" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="when-to-use-a-stem-leaf-plot"><span class="header-section-number">1.3</span> When to use a Stem &amp; Leaf plot</h2>
+<p>You will find it appropriate to use a Stem &amp; Leaf plot when you need to:</p>
+<ul>
+<li>Quickly determine the frequency of an observation</li>
+<li>Quickly order the observations in your data.</li>
+<li>Quickly visualise the distribution of your data</li>
+<li>Quickly make and report on findings while in the field</li>
+<li>Require more information than a what is present on a histogram.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reminder on loading packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The first line of code <code>chooseCRANmirrow(ind = 68)</code> specifies where the package will be downloaded from. CRAN stands for the *Comprehensive R Archive Network, and the mirror is the exit-node you’ll be using. There are over 100 mirrors, but I normally settle on 68th index (<code>ind</code>) by habit; if you cannot find you package, you should consider changing the <code>ind</code> value.</p>
+<p>The second line of the code actually loads the package. Conventionally, you can load a package by typing the following into a blank script.</p>
+<pre><code>install.packages("aplpack")
+library(aplpack)</code></pre>
+<p>Alternatively:</p>
+<pre><code>install.packages("aplpack", repos = "https://cloud.r-project.org")
+require(aplpack)</code></pre>
+<p>We’ll revisit R packages in a later section of this website.</p>
+</div>
+</div>
+<p>It’s worth noting that Stem &amp; Leaf plots can be used with time series and non-numeric data but for the purposes of this tutorial, we’ll stop at it’s simple application on numerical vectors.</p>
+</section>
+<section id="central-tendency" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="central-tendency"><span class="header-section-number">1.4</span> Central Tendency</h2>
+<p>When examining distributions we are immediately drawn to its shape, where peaks indicate higher numbers of frequencies. The best known measure is the <strong>median</strong>, followed by the <strong>arithmetic mean</strong> and the <strong>mode</strong>. The median, mode and mean are particularly useful in describing the shape of a distribution without a graphic aid.</p>
+<ul>
+<li><p>When the mean has a greater value than a median (and/or the mode is less than the median), the shape of the distribution is positively skewed; the distribution has a tail towards the right.</p></li>
+<li><p>When the mean is less than the median (and/or the mode is greater than the median), the shape of the distribution is negatively skewed, with a long tail to the left.</p></li>
+<li><p>When the mean, mode, and median are aligned, the shape of the distribution is symmetrical.</p></li>
+</ul>
+<p>By way of illustration see <a href="#fig-1">Figure&nbsp;1</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Positve and negative skews generated by random beta distributions. Median is red while the mean is shown by a blue dashed line</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="gaussian-normal-distributions" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="gaussian-normal-distributions"><span class="header-section-number">1.4.1</span> Gaussian normal distributions</h3>
+<p>A symmetric, bell-shaped distribution with a single peak. An example can be simulated using the <code>rnorm()</code> function. This function returns a random numerical vector with properties that form to a Gaussian normal distribution <a href="#fig-2">Figure&nbsp;2</a>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating the distribution...</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>norm_dist <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the result...</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="at">x =</span> norm_dist, <span class="at">adjust =</span> <span class="dv">5</span>), <span class="at">main =</span> <span class="st">"Normal distribution"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(norm_dist), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(norm_dist), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="dv">14</span>, <span class="fl">0.15</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Median"</span>,<span class="st">"Mean"</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"blue"</span>), <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Under these conditions you are able to apply a range of probability analyses, working with skew data posses limitations in this regard, where researchers often strive to convert their data to this distribution by either removing outliers or by transforming its values - a process discussed much later on.</p>
+</section>
+<section id="dealing-with-outliers" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="dealing-with-outliers"><span class="header-section-number">1.4.2</span> Dealing with outliers</h3>
+<p>Outliers in a variable are observations that are considered extreme. They are exceptionally high or exceptionally high relative to the rest of the data present, specifically the interquartile range hinges <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">Tukey 1977</a>)</span>. Conventionally, they can play a role in Centrality of a distribution, where removing them could aid in the reliability of your analysis. They can be conventionally detected by applying <a href="#eq-LO">Equation&nbsp;5</a> to find lower outliers and <a href="#eq-HO">Equation&nbsp;6</a> to find higher outliers.</p>
+<p><span id="eq-LO"><span class="math display">\[
+LO = Q1 - (1.5 \times IQR)
+\tag{5}\]</span></span></p>
+<p><span id="eq-HO"><span class="math display">\[
+HO = Q3 + (1.5 \times IQR)
+\tag{6}\]</span></span></p>
+<p>Outliers are typically depicted in box whisker plots, where in R it is possible to retrieve numerical values using the <code>boxplot.stats(...)</code> function to access the metadata behind the plot. Let’s apply this function to some data concerning the distribution of Christians in Thanet, South East England.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquiring the data...</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Thanet_religion <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Richtea84/I2Q-files/main/Thanet.csv"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Box whisker plot for the region's Buddhists...</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="at">x =</span> Thanet_religion<span class="sc">$</span>Christian, <span class="at">horizontal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"palegreen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Distribution of Christians in Thanet</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>When the <code>boxplot.stats(...)</code> function is applied, the following result is rendered:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(Thanet_religion<span class="sc">$</span>Christian)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$stats
+[1]  685.0  886.5  954.5 1071.0 1300.0
+
+$n
+[1] 84
+
+$conf
+[1] 922.6937 986.3063
+
+$out
+[1] 1515  594 1363 1478 1386</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The <em>stats</em> are, in order, the extreme value of the lower whisker, the lower ‘hinge’ where the first 25% of the observations fall, the median, the upper hinge where the last 25% of the data falls, and the extreme of the upper whisker</p></li>
+<li><p><em>n</em> is the size of the same. In Thanet, there are 84 lower super output areas</p></li>
+<li><p><em>conf</em> are extremes of the confidence interval (at 95%). Confidence intervals are discussed later on.</p></li>
+<li><p><em>out</em> returns values that are beyond the extreme whiskers. <em>These are the outliers</em>.</p></li>
+</ul>
+<p>To isolate the outliers, the code is as follows:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(Thanet_religion<span class="sc">$</span>Christian)<span class="sc">$</span>out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1515  594 1363 1478 1386</code></pre>
+</div>
+</div>
+<p>To remove these outliers from the data frame, you can use the <code>which(...)</code> function in R. This is how it is applied to the Thanet data:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of rows in original Thanet data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Number of rows in the original Thanet data set = "</span>,<span class="fu">nrow</span>(Thanet_religion),<span class="at">sep =</span> <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of rows in the original Thanet data set = 84"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Storing the identified outliers</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Outliers <span class="ot">&lt;-</span> <span class="fu">boxplot.stats</span>(Thanet_religion<span class="sc">$</span>Christian)<span class="sc">$</span>out</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing the outliers</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>Thanet_NO <span class="ot">&lt;-</span> Thanet_religion[<span class="sc">-</span><span class="fu">which</span>(Thanet_religion<span class="sc">$</span>Christian <span class="sc">%in%</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">c</span>(Outliers)),]</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Number of rows in the adjusted Thanet data set = "</span>,<span class="fu">nrow</span>(Thanet_NO),<span class="at">sep =</span> <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of rows in the adjusted Thanet data set = 79"</code></pre>
+</div>
+</div>
+<p>In essence, the <code>which(...)</code> function returns a position that is based on a condition; data which can be described in a certain way. Here, it is being used to slice the Thanet_religion data frame to find the number of Christians that are considered outliers. Specifically, <code>-which(...)</code> is being used to invert the process, so that we are finding all of the records that are not considered outliers.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that the <code>$</code> operator is used to access lists within a data frame. I works in similar way to square brackets <code>[]</code> that can also be used when slicing a data frame. The <code>$</code> cannot be used to slice a matrix.</p>
+<p>The <code>%in%</code> operator in R pushes code from one process to another. In the Thanet example above, the Christian data is being pushed into a concatenated list of outliers.</p>
+</div>
+</div>
+<p>The distribution of Christian in Thanet can be seen in <a href="#fig-2">Figure&nbsp;2</a>. The distribution shows a visible positive skew. This is confirmed by mean value being greater than the median value. In <a href="#fig-3">Figure&nbsp;3</a>, the symmetry of the distribution appears to have improved, but a positive skew is still detectable; the difference between the mode and median has reduced, a significant outcome that will play a role in later analyses.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Thanet_religion<span class="sc">$</span>Christian, <span class="at">col =</span> <span class="st">"palegreen"</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Original Data"</span>, <span class="at">xlab =</span> <span class="st">"No. of Christians"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">300</span>, <span class="dv">1700</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(Thanet_religion<span class="sc">$</span>Christian), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(Thanet_religion<span class="sc">$</span>Christian), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="dv">1400</span>, <span class="dv">15</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Median"</span>,<span class="st">"Mean"</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"blue"</span>), <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Thanet_NO<span class="sc">$</span>Christian, <span class="at">col =</span> <span class="st">"palegreen"</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Adjusted Data"</span>, <span class="at">xlab =</span> <span class="st">"No. of Christians"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">300</span>, <span class="dv">1700</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(Thanet_NO<span class="sc">$</span>Christian), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(Thanet_NO<span class="sc">$</span>Christian), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="dv">1400</span>, <span class="dv">15</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Median"</span>,<span class="st">"Mean"</span>),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"blue"</span>), <span class="at">lty =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-trimmed-mean" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="the-trimmed-mean"><span class="header-section-number">1.4.3</span> The trimmed mean</h3>
+<p>Let’s a imagine a situation where outliers cannot be removed or, when they are, no difference is made to the distribution of the data. Your mean average is affected by this situation. An option is to trim the mean, where the contents of the variable are sorted into a numeric order and a portion sliced off (see <a href="#eq-tm">Equation&nbsp;7</a>)</p>
+<p><span id="eq-tm"><span class="math display">\[
+\bar{x}_t = \frac{\sum_{i=p+1}^{n-p}x_i}{n-2p}
+\tag{7}\]</span></span></p>
+<p>In <a href="#eq-tm">Equation&nbsp;7</a>, <span class="math inline">\(p\)</span> refers to the portion. Where the we are generating an average for section of data where the last portion has been removed (<span class="math inline">\(n-p\)</span>); the indexing duly states that the starting point relative to the index is the original value plus the proportion. The result is a trimming of the variable.</p>
+<p>To work out the estimate, the trimmed sample must be divided by the size of the trimmed sample from both ends: <span class="math inline">\(n-2p\)</span>.</p>
+<p>Calculating the trimmed mean is fairly straightforward in R by adding the <code>trim =</code> argument to the <code>mean(...)</code> function. Here the trim is the desired proportion. Entering a value of 0.25 will remove the top and bottom 25% of the data’s observations. Let’s try this with our Thanet data, this time looking at the number of Muslims.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x =</span> Thanet_religion<span class="sc">$</span>Muslim, <span class="at">trim =</span> <span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.47619</code></pre>
+</div>
+</div>
+<p>The original mean is 14.6428571.</p>
+<p>As with the removal of outliers, the context underwhich you will trim the mean depends on the specifics of your analysis and the shape of the data concerned.</p>
+</section>
+</section>
+<section id="spread" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="spread"><span class="header-section-number">1.5</span> Spread</h2>
+<p>The spread of a sample’s distribution is determined by how far the values within a distribution deviate from the sample’s mean (<span class="math inline">\(\bar{x}\)</span>). Standard deviation is a standardisation of variance, but what do we mean by variance.</p>
+<section id="a-description-of-variance" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="a-description-of-variance"><span class="header-section-number">1.5.1</span> A description of variance</h3>
+<p>Sample variance in essence are an index of values and their distance from a sample mean. Its mathematical symbol is <span class="math inline">\(\sigma^2\)</span>. It’s formula is as follows:</p>
+<p><span id="eq-5"><span class="math display">\[
+\sigma^2 = \frac{\sum(x_i-\bar{x})^2}{n-1}
+\tag{8}\]</span></span></p>
+<p>In essence, what we are doing is finding the total numerical distance of each observation within of a sample <span class="math inline">\(x\)</span> from the sample’s mean <span class="math inline">\(\bar{x}\)</span>. For our sample, we need to find the total sum of squares (<span class="math inline">\(TSS\)</span>, see <a href="#eq-6">Equation&nbsp;9</a>). The reason for the power function is to remove the negative signs that will return erroneous results.</p>
+<p><span id="eq-6"><span class="math display">\[
+TSS = \sum_{i=1}^{n}(x_i - \bar{x})^2
+\tag{9}\]</span></span></p>
+<p>The final stage of the equation (as shown in <a href="#eq-5">Equation&nbsp;8</a>) is to divide the observations by the number of observations in your sample, resulting in an average. Note the use of <span class="math inline">\(n-1\)</span> instead of just <span class="math inline">\(n\)</span>; this indicates the number of independent observations that are able to vary. A sample of 100 observations is able to vary up to its 99th observation where, at the 100th value, variance is lost. <span class="math inline">\(n-1\)</span> is referred to as the sample’s degree’s of freedom (<span class="math inline">\(\nu\)</span> or ‘df’).</p>
+</section>
+<section id="standard-deviation-as-measure-of-spread" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="standard-deviation-as-measure-of-spread"><span class="header-section-number">1.5.2</span> Standard deviation as measure of spread</h3>
+<p>While variance (<span class="math inline">\(\sigma^2\)</span>) gives us an indication of differences of values from the mean, the problem is that its result is too large to relate directly back to the original sample. To address this issue, we introduce a square root function to the overall equation so that <span class="math inline">\(\sigm^2\)</span> becomes <span class="math inline">\(\sigma\)</span>. The equation is as follows:</p>
+<p><span class="math display">\[
+\sigma = \sqrt\frac{\sum(x_i-\bar{x})^2}{n-1}
+\]</span></p>
+<p>When this figure is calculated, we are able to determine the spread of a distribution given the standard deviation of observations from the sample’s overall mean (see <a href="#fig-5">Figure&nbsp;5</a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Example of normal distribution with the number of standard deviations.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Calculating the standard deviation of a vector (or variable) is straightforward in R via the <code>sd(...)</code> function. Let’s use the <code>sd(...)</code> function to work out the spread of a randomly generated distribution.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>pos_dist <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>st_dev <span class="ot">&lt;-</span> <span class="fu">sd</span>(pos_dist)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(pos_dist, <span class="at">adjust =</span> <span class="dv">5</span>), <span class="at">main =</span> <span class="st">"Postive skew"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(pos_dist), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(pos_dist)<span class="sc">+</span>st_dev, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(pos_dist)<span class="sc">-</span>st_dev, <span class="at">col =</span> <span class="st">"green"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Random distribution showing the mean (blue dashed line) and standard deviation range (green lines)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on this example we can see that most of the standard deviation of our sample’s is ~0.08 on either side of the mean, giving us further insights regarding our data distribution in addition to there interquartile range, mode, mean, and medians.</p>
+</section>
+</section>
+<section id="probability-functions" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="probability-functions"><span class="header-section-number">1.6</span> Probability functions</h2>
+<p>Probability relates to the chance of something happening. When it comes to statistics, probability functions can tell us the likelihood of observing particular results from our data variable.</p>
+<p>Probability functions are most accurate when data is normally distributed. Eyeballing graphs or considering marginal differences between the mean, mode, and median can give an indication of normality, however, there are specific tests that can help us to readily identify whether or not a variable is normally distributed.</p>
+<section id="z-scores" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="z-scores"><span class="header-section-number">1.6.1</span> Z-scores</h3>
+<p>A useful aid in probability analysis are Z standard scores (or Z-scores). In itself, a z-score is useful for calculating how many standard deviations an observation is from its sample mean. These are calculated by subtracting an obsevation (<span class="math inline">\(x\)</span>) from its sample mean (<span class="math inline">\(\mu\)</span>) and dividing the result by its the sample standard deviation (<span class="math inline">\(\sigma\)</span>) see <a href="#eq-z">Equation&nbsp;10</a>.</p>
+<p><span id="eq-z"><span class="math display">\[
+Z = \frac{x-\mu}{\sigma}
+\tag{10}\]</span></span></p>
+<p>Calculating Z-scores in R is relatively straight forward using the <code>mean(...)</code> and <code>sd(...)</code> functions. To work out the z-scores for Christians in the first 10 Thanet_NO data observations, we can use the following code:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  (Thanet_NO<span class="sc">$</span>Christian <span class="sc">-</span> <span class="fu">mean</span>(Thanet_NO<span class="sc">$</span>Christian))<span class="sc">/</span><span class="fu">sd</span>(Thanet_NO<span class="sc">$</span>Christian),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">10</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1.1310132  2.4006156 -0.1314565  0.4819469  0.5889358  1.2807978
+ [7]  0.8100464  0.2608364  1.6160299 -0.5380145</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Quick note on user-defined functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The process for calculating Z-scores in R is rather extrpolated. If you wanted to reduce the inputs, you can consider building you own <strong>user defined function</strong>. This is enabled using the the <code>function(...)</code> <em>function</em> in R. <code>function(...)</code> only requires vector(s) for input(s), where the curly braces define the treatment of your defined vector/input. the formula. To build a custom process for Z-scores, the process is as follows:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">=</span> (x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+<p>When this custom function is applied to our data, the results are as follows:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">z_scores</span>(<span class="at">x =</span> Thanet_NO<span class="sc">$</span>Christian),<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1.1310132  2.4006156 -0.1314565  0.4819469  0.5889358  1.2807978
+ [7]  0.8100464  0.2608364  1.6160299 -0.5380145</code></pre>
+</div>
+</div>
+</section>
+<section id="q-q-plots" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="q-q-plots"><span class="header-section-number">1.6.2</span> Q-Q plots</h3>
+<p>In addition to histograms and KDE plots, Quantile-Quantile (plots) are able to indicate whether or not data is normally distributed. In essence, it is a 2-dimensional plot that compares observed quantiles (<span class="math inline">\(y\)</span>) with theoretical quantiles (<span class="math inline">\(\hat{y}\)</span>).</p>
+<p>Theoretical quantiles are derived from Z-scores for both your data and those found in an equivalently sized standard normal distribution. To calculate this you’ll need to work out the proportion for each observation’s Z-score. To do this, divide the values by the number of observations. As we’re dealing with variance, we subtract 1 from each half of the fraction <span class="math inline">\(p = \frac{x-1}{n-1}\)</span>. For demonstration purposes, let’s construct a data frame for the first observations noted above:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">head</span>(Thanet_NO<span class="sc">$</span>Christian,<span class="dv">10</span>))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> (data <span class="sc">-</span> <span class="fu">mean</span>(data))<span class="sc">/</span><span class="fu">sd</span>(data)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> (<span class="fu">as.data.frame</span>(z_scores))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simpler header...</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(z_scores)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Sorted Z-scores"</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportionality...</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>z_scores<span class="sc">$</span>Prop <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(z_scores)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">nrow</span>(z_scores))</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>z_scores<span class="sc">$</span>Prop <span class="ot">&lt;-</span> <span class="fu">round</span>(z_scores<span class="sc">$</span>Prop,<span class="dv">4</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(z_scores)[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"Proportion"</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the results...</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">t</span>(z_scores))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sorted Z-scores</td>
+<td style="text-align: right;">-1.543638</td>
+<td style="text-align: right;">-1.071096</td>
+<td style="text-align: right;">-0.615134</td>
+<td style="text-align: right;">-0.3581373</td>
+<td style="text-align: right;">-0.2337841</td>
+<td style="text-align: right;">0.0232126</td>
+<td style="text-align: right;">0.3962723</td>
+<td style="text-align: right;">0.5703669</td>
+<td style="text-align: right;">0.960007</td>
+<td style="text-align: right;">1.871931</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Proportion</td>
+<td style="text-align: right;">0.090900</td>
+<td style="text-align: right;">0.181800</td>
+<td style="text-align: right;">0.272700</td>
+<td style="text-align: right;">0.3636000</td>
+<td style="text-align: right;">0.4545000</td>
+<td style="text-align: right;">0.5455000</td>
+<td style="text-align: right;">0.6364000</td>
+<td style="text-align: right;">0.7273000</td>
+<td style="text-align: right;">0.818200</td>
+<td style="text-align: right;">0.909100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Using these proportions, you are able to retrieve equivalent Z-scores from a normal distribution (i.e.&nbsp;your theoretical quantiles). In R, this can be achieved by generating a similarly sized random distribution and querying it with the <code>qnorm(...)</code> function that relies on a standard normal distribution. Here:</p>
+<ul>
+<li><code>p =</code> will be the Proportions we’ve just calculated</li>
+<li><code>mean =</code> will be 0</li>
+<li><code>sd =</code> will be 1</li>
+</ul>
+<p>The result can be previewed using the <code>plot(...)</code> function.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>z_normal <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="at">p =</span> z_scores<span class="sc">$</span>Proportion, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> z_normal, <span class="at">y =</span> data, <span class="at">xlab =</span> <span class="st">"Theoretical Qauntiles"</span>, <span class="at">ylab =</span> <span class="st">"Observed Quantiles"</span>,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Manually produced Q-Q plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-7" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;7: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In practice, you’d use the <code>qqnorm(...)</code> function instead, where you merely supply the <span class="math inline">\(y\)</span> variable you are interested in. In practice is a good idea to include the predictor line in such a plot. This can be achieved using the <code>qqline(...)</code> function and supplying the same arguments (see <a href="#fig-7">Figure&nbsp;7</a>).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="at">y =</span> <span class="fu">head</span>(Thanet_NO<span class="sc">$</span>Christian,<span class="dv">10</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="at">y =</span> <span class="fu">head</span>(Thanet_NO<span class="sc">$</span>Christian,<span class="dv">10</span>), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-8" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;8: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>When the points fall along the line of a Q-Q plot, a normal distribution is present in the data sample. A Q-Q for all of Thanet’s Christians in 2011 (excluding outliers) can be seen in <a href="#fig-8">Figure&nbsp;8</a>. The points loosely follow the trajectory of the line and approximate normalcy can be argued.</p>
+<p>The skewness of a distribution can also be ascertained from a Q-Q plot. When the points fall away from the line towards the negative numbers, then we have a negative skew; a positive skew occurs when the points move away from the line as the quantile values increase.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(Thanet_NO<span class="sc">$</span>Christian)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(Thanet_NO<span class="sc">$</span>Christian, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-9" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Classical_Measures_files/figure-html/fig-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;9: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-shapiro-wilk-test" class="level3" data-number="1.6.3">
+<h3 data-number="1.6.3" class="anchored" data-anchor-id="the-shapiro-wilk-test"><span class="header-section-number">1.6.3</span> The Shapiro-Wilk test</h3>
+<p>A reliable way to test for normality prior to using probability functions is the Shapiro-Wilk test. For reference, it’s equation is as follows:</p>
+<p><span id="eq-shapiro"><span class="math display">\[
+W = \frac{\left( \sum_{i=1}^{n}a_i x_{(i)} \right )^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\tag{11}\]</span></span></p>
+<p>An easy way of thinking about <a href="#eq-shapiro">Equation&nbsp;11</a>, is as a precise ‘fit’ coefficient statistic for a Q-Q plot. The top half of the equation squares the sum of normal value that has been matched against its ordered x equivalent. This is in turn divided by the sum of squares that returns the <span class="math inline">\(W\)</span> statistic.</p>
+<p>In essence, the <span class="math inline">\(W\)</span> statistic tells us how closely our distribution’s shape aligns to a normal distribution. Once can argue that a value that is &gt;0.5 can be considered <em>normal</em>, however, using this statistic alone will mean that a value of <span class="math inline">\(W = 1\)</span> will be the only confirmation of normalcy in the data distribution.</p>
+<p>Let’s go back to our value 0.5 (let’s call it <span class="math inline">\(W'\)</span>), and assume that we can see that the distribution appears normal by looking at either the distributions histogram or Q-Q plot, the only way we can confirm normality is by examining the likelihood of seeing this statistic against its critical value within a predetermined confidence interval. Consider ‘Table 2’ from the following web resource: <a href="https://real-statistics.com/statistics-tables/shapiro-wilk-table/" class="uri">https://real-statistics.com/statistics-tables/shapiro-wilk-table/</a>. For a sample with 10 observations, at 95% confidence (an alpha of 0.05), the critical value is ~0.842. As our value of <span class="math inline">\(W' &lt; W\)</span>, we conclude that our distribution does not conform to a normal distribution.</p>
+<p>We can easily perform this test in R using the <code>shapiro.test(...)</code> function. This function is particularly useful as it matches the resulting <span class="math inline">\(W\)</span> statistic against a probability value. However, the understanding is that if your p-value is less than a predetermined confidence interval’s , then the null-hypothesis is rejected where normalcy cannot be confirmed. If it is above the , then we can assume normalcy and consider the data as parametric.</p>
+<p>Let’s apply a Shapiro-Wilk test to our Thanet data (Christians).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> Thanet_NO<span class="sc">$</span>Christian)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  Thanet_NO$Christian
+W = 0.98525, p-value = 0.498</code></pre>
+</div>
+</div>
+<p>From this result it is apparent that the <span class="math inline">\(W\)</span> value is quite high at 0.99, the p-value is also above an of 0.05 (0.5). Therefore we can conclude that the distribution is normal. Let’s consider the Muslim population:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="at">x =</span> Thanet_NO<span class="sc">$</span>Muslim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  Thanet_NO$Muslim
+W = 0.84917, p-value = 1.744e-07</code></pre>
+</div>
+</div>
+<p>Again, the <span class="math inline">\(W\)</span> value suggests a normal shape to our distribution, but the p-value is less than an of 0.05 (0.0000001743786). We conclude that the data here is not normally distributed (or nonparametric).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In R Shapiro-Wilk tests can be applied to up to 5,000 observations. Larger sample sizes will not compute because of limitations in the synthesis of critical values associated with the principle method.</p>
+</div>
+</div>
+</section>
+<section id="the-anderson-darling-test" class="level3" data-number="1.6.4">
+<h3 data-number="1.6.4" class="anchored" data-anchor-id="the-anderson-darling-test"><span class="header-section-number">1.6.4</span> The Anderson-Darling test</h3>
+<p>If you found yourself in a situation where you are not fully convinced by the results of your Shapiro-Wilk test, an alternative is the Anderson-Darling test.</p>
+<p>This goodness-of-fit test is based on mathematical integration for two distributions:</p>
+<p><span id="eq-AD"><span class="math display">\[
+AD = n\int_{\infty}^{\infty}\frac{\left ( F_n(x)-F(x) \right )^2}{F(x) \left ( 1 -F(x) \right )} dF(x)
+\tag{12}\]</span></span></p>
+<p>in <a href="#eq-AD">Equation&nbsp;12</a>, <span class="math inline">\(F_n(x)\)</span> is the empirical distribution and <span class="math inline">\(F(x)\)</span> is the reference distribution <span class="citation" data-cites="anderson1954test">(<a href="#ref-anderson1954test" role="doc-biblioref">Anderson and Darling 1954</a>)</span>. Effectively, for an number of observations along a distribution and its respective cumulative equivalent, you are 1) subtracting the values of the reference distribution from your observed distribution and dividing the value by the reference distribution (multiplied by its degrees of freedom). This result is then multiplied by degrees of freedom for your number of observations <span class="math inline">\(dF(x)\)</span>. Again, this statistic is compared against a critical value to determine normalcy. If the value is above the critical value, normalcy can be assumed; if below, then normality can be rejected.</p>
+<p>Helpfully, there is a package in R that does the hard work for us called <code>nortest</code>. Below is how it can be applied to confirm the non-normal distribution of Thanet’s muslim population.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nortest)) <span class="fu">install.packages</span>(<span class="st">"nortest"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(<span class="at">x =</span> Thanet_NO<span class="sc">$</span>Muslim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Anderson-Darling normality test
+
+data:  Thanet_NO$Muslim
+A = 3.6933, p-value = 2.673e-09</code></pre>
+</div>
+</div>
+<p>In the result, p-value is interpreted in the same way as for a Shapiro-Wilk test. That is, as it is below an <span class="math inline">\(\alpha\)</span> of 0.05, we conclude that the difference between the distributions is statistically significant, where we can conlcude that the distribution is not normal.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To my knowledge, there is no maximum number of observations that can be applied to a Anderson-Darling test. However, it is generally advised that it be applied to a minimum of 20 observations.</p>
+</div>
+</div>
+</section>
+<section id="the-kolgomorov-smirnov-test" class="level3" data-number="1.6.5">
+<h3 data-number="1.6.5" class="anchored" data-anchor-id="the-kolgomorov-smirnov-test"><span class="header-section-number">1.6.5</span> The Kolgomorov-Smirnov Test</h3>
+<p>An alternative to the Anderson-Darling test is the Kolmogorov-Smirnov test. The advantage here is that you are able to compare your distribution to other theoretical data distribution including the normal distribution, Poisson distribution and binomial distribution.</p>
+<p>This is particularly powerful when determining your instruments for analysis and overall methodical approach going forward.</p>
+<p>The critical statistic for this test is <span class="math inline">\(D\)</span> (distance), indicating how far your sample is from another distribution. It is calculated in the following way:</p>
+<p><span id="eq-D"><span class="math display">\[
+D = max | F_o(x)-F_r(x)|
+\tag{13}\]</span></span></p>
+<p>Conceptually, the <span class="math inline">\(F_o(x)\)</span> is a cumulative frequency distribution of sample of observations; <span class="math inline">\(F_r(x)\)</span> is the theoretical frequency distribution. You can be more specific with <span class="math inline">\(F_o(x)\)</span> by taking the number of observations that are above a given value (slicing), and dividing these by total number of observations. In theory you can match your sample against other theoretical distributions such as Poisson or Binomial.</p>
+<p>In R, implemented a Kolmogorov-Smirnov test is relatively straightforward with the <code>ks.test(...)</code> function. Let’s use it to check the normalcy of the distribution for Thanet’s muslims:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(<span class="at">x =</span> Thanet_NO<span class="sc">$</span>Muslim, <span class="at">y =</span> <span class="st">"dnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ks.test.default(x = Thanet_NO$Muslim, y = "dnorm"): ties should not
+be present for the Kolmogorov-Smirnov test</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  Thanet_NO$Muslim
+D = 1, p-value &lt; 2.2e-16
+alternative hypothesis: two-sided</code></pre>
+</div>
+</div>
+<p>The argument <code>x =</code> specifies the location of our observations (data) while the <code>y =</code> argument indicates the reference distribution. In the example featured above, we are looking at the <em>normal distribution</em> as rendered by R itself (<code>dnorm</code>).</p>
+<p>Here, the <span class="math inline">\(D\)</span> value is quite high, indicating a greater distance of an observation from its matched distribution. The low p-value confirms that the distribution of our data does not fall within a normal distribution.</p>
+<p>This test is best suited for larger data sets and is prone to return erroneous results (Type-I and Type-II errors) when examining smaller samples. <span style="color:red"> <strong>Use with caution and critically evaluate the results!</strong></span>.</p>
+
+
+
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-anderson1954test" class="csl-entry" role="listitem">
+Anderson, Theodore W, and Donald A Darling. 1954. <span>“A Test of Goodness of Fit.”</span> <em>Journal of the American Statistical Association</em> 49 (268): 765–69.
+</div>
+<div id="ref-tukey1977exploratory" class="csl-entry" role="listitem">
+Tukey, JW. 1977. <span>“Exploratory Data Analysis. Addison-Wesley, Reading, MA.”</span> <em>Exploratory Data Analysis. Addison-Wesley, Reading, MA.</em>
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
