@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="https://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.353">
@@ -243,7 +243,7 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-Vis" id="toc-sec-Vis" class="nav-link active" data-scroll-target="#sec-Vis"><span class="header-section-number">1</span> Visualising distirbutions (Tukey’s Steam &amp; Leaf plot)</a>
+  <li><a href="#sec-Vis" id="toc-sec-Vis" class="nav-link active" data-scroll-target="#sec-Vis"><span class="header-section-number">1</span> Visualising distirbutions (Tukey’s Stem &amp; Leaf plot)</a>
   <ul class="collapse">
   <li><a href="#the-median" id="toc-the-median" class="nav-link" data-scroll-target="#the-median"><span class="header-section-number">1.1</span> The median</a></li>
   <li><a href="#comparing-distributions" id="toc-comparing-distributions" class="nav-link" data-scroll-target="#comparing-distributions"><span class="header-section-number">1.2</span> Comparing distributions</a></li>
@@ -259,13 +259,14 @@ div.csl-indent {
   <li><a href="#a-description-of-variance" id="toc-a-description-of-variance" class="nav-link" data-scroll-target="#a-description-of-variance"><span class="header-section-number">1.5.1</span> A description of variance</a></li>
   <li><a href="#standard-deviation-as-measure-of-spread" id="toc-standard-deviation-as-measure-of-spread" class="nav-link" data-scroll-target="#standard-deviation-as-measure-of-spread"><span class="header-section-number">1.5.2</span> Standard deviation as measure of spread</a></li>
   </ul></li>
-  <li><a href="#probability-functions" id="toc-probability-functions" class="nav-link" data-scroll-target="#probability-functions"><span class="header-section-number">1.6</span> Probability functions</a>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">1.6</span> Confidence intervals</a></li>
+  <li><a href="#probability-functions" id="toc-probability-functions" class="nav-link" data-scroll-target="#probability-functions"><span class="header-section-number">1.7</span> Probability functions</a>
   <ul class="collapse">
-  <li><a href="#z-scores" id="toc-z-scores" class="nav-link" data-scroll-target="#z-scores"><span class="header-section-number">1.6.1</span> Z-scores</a></li>
-  <li><a href="#q-q-plots" id="toc-q-q-plots" class="nav-link" data-scroll-target="#q-q-plots"><span class="header-section-number">1.6.2</span> Q-Q plots</a></li>
-  <li><a href="#the-shapiro-wilk-test" id="toc-the-shapiro-wilk-test" class="nav-link" data-scroll-target="#the-shapiro-wilk-test"><span class="header-section-number">1.6.3</span> The Shapiro-Wilk test</a></li>
-  <li><a href="#the-anderson-darling-test" id="toc-the-anderson-darling-test" class="nav-link" data-scroll-target="#the-anderson-darling-test"><span class="header-section-number">1.6.4</span> The Anderson-Darling test</a></li>
-  <li><a href="#the-kolgomorov-smirnov-test" id="toc-the-kolgomorov-smirnov-test" class="nav-link" data-scroll-target="#the-kolgomorov-smirnov-test"><span class="header-section-number">1.6.5</span> The Kolgomorov-Smirnov Test</a></li>
+  <li><a href="#z-scores" id="toc-z-scores" class="nav-link" data-scroll-target="#z-scores"><span class="header-section-number">1.7.1</span> Z-scores</a></li>
+  <li><a href="#q-q-plots" id="toc-q-q-plots" class="nav-link" data-scroll-target="#q-q-plots"><span class="header-section-number">1.7.2</span> Q-Q plots</a></li>
+  <li><a href="#the-shapiro-wilk-test" id="toc-the-shapiro-wilk-test" class="nav-link" data-scroll-target="#the-shapiro-wilk-test"><span class="header-section-number">1.7.3</span> The Shapiro-Wilk test</a></li>
+  <li><a href="#the-anderson-darling-test" id="toc-the-anderson-darling-test" class="nav-link" data-scroll-target="#the-anderson-darling-test"><span class="header-section-number">1.7.4</span> The Anderson-Darling test</a></li>
+  <li><a href="#the-kolgomorov-smirnov-test" id="toc-the-kolgomorov-smirnov-test" class="nav-link" data-scroll-target="#the-kolgomorov-smirnov-test"><span class="header-section-number">1.7.5</span> The Kolgomorov-Smirnov Test</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -334,7 +335,7 @@ Tip
 <li><strong>min</strong>: The minimum value for the data range</li>
 <li><strong>max</strong>: The maximum value for the data range</li>
 </ul>
-<p>The <code>set.seed(...)</code> function calibrates the random number generator state. In other words, it ensures that same values are present if ran on another computer.</p>
+<p>The <code>set.seed(...)</code> function calibrates the random number generator state. In other words, it ensures that the same values are present if ran on another computer.</p>
 </div>
 </div>
 <p>To find the average number from this series, the function <code>mean(...)</code> can be used on the data. For example:</p>
@@ -349,8 +350,8 @@ Tip
 </div>
 <p>There are various <em>classical measures</em> used in statistics to describe data and these will be discussed in this section. These include averages, central tendency, variability, scatter, and variation.</p>
 <section id="sec-Vis" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Visualising distirbutions (Tukey’s Steam &amp; Leaf plot)</h1>
-<p>Traditionally, when data is first received, a good first step is to exam its shape (or distribution). Doing this develops an understanding of whether the data features a mostly high, low, or middle data values. A method of visualising this in R is the Tukey’s <em>Stem and Leaf</em> plot <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">1977</a>)</span>. This can quickly produced in R using the <code>stem(...)</code> function. Applied to the random numbers generated above, the process and result are as follows:</p>
+<h1 data-number="1"><span class="header-section-number">1</span> Visualising distirbutions (Tukey’s Stem &amp; Leaf plot)</h1>
+<p>Traditionally, when data is first received, a good first step is to examine its shape (or distribution). Doing this develops an understanding of whether the data features predominantly high, low, or middle data values. A method of visualising this in R is the Tukey’s <em>Stem and Leaf</em> plot <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">1977</a>)</span>. This can quickly produced in R using the <code>stem(...)</code> function. Applied to the random numbers generated above, the process and result are as follows:</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -382,7 +383,7 @@ Tip
   6 | 001233</code></pre>
 </div>
 </div>
-<p>Essentially, the plot above is using all of the recorded values by their whole number to the left of the bar <code>|</code>; to the right of the bar are first decimal places of each occurrence. For example, the first row shows: <code>0 | 1234555666799</code>, this translates to the following sequence of decimal numbers:</p>
+<p>Essentially, the plot above is using all of the recorded values by their whole number to the left of the bar <code>|</code>; to the right of the bar are first decimal places of each occurrence. For example, the first row shows: <code>0 | 1234555666799</code>, this translates to the following sequence of rounded decimal numbers:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  2  2  3  4  4  5  7  7  7  8  9 10 11</code></pre>
@@ -395,15 +396,15 @@ Tip
  [8]  7.164741  7.412225  8.100033  8.802048  9.958532 10.615302</code></pre>
 </div>
 </div>
-<p>Therefore, From the data distribution, its quickly obvious that there is a peak at in observations with values ranging between 20-29.</p>
+<p>Therefore, from the data distribution, its quickly obvious that there is a peak in observations with values ranging between 20-29.</p>
 <section id="the-median" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="the-median"><span class="header-section-number">1.1</span> The median</h2>
-<p>From the stem and leaf plot featured in <a href="#sec-Vis">Section&nbsp;1</a>, it is possible to calculate the middle point of the data known as the <strong>median</strong>. Equation is as follows:</p>
+<p>From the stem and leaf plot featured in <a href="#sec-Vis">Section&nbsp;1</a>, it is possible to calculate the middle point of the data known as the <strong>median</strong>. The equation is as follows:</p>
 <p><span id="eq-1"><span class="math display">\[
 \mu = X\begin{bmatrix}\frac{n+1}{2}\end{bmatrix}
 \tag{1}\]</span></span></p>
 <p>Here, <span class="math inline">\(\mu\)</span> represents the median (the value), <span class="math inline">\(X\)</span> is the ordered list of numbers (as featured in the Stem and Leaf plot), <span class="math inline">\(n\)</span> is the number of observations.</p>
-<p>The process is involves counting the number of observations plus 1 and dividing that number by 2. The data we’ve been examining so far has 99 observations (<span class="math inline">\(n\)</span> = 99), so we can begin to solve the equation:</p>
+<p>The process involves counting the number of observations plus 1 and dividing that number by 2. The data we’ve been examining so far has 99 observations (<span class="math inline">\(n\)</span> = 99), so we can begin to solve the equation:</p>
 <p><span id="eq-2"><span class="math display">\[
 \begin{align}
 \mu &amp; = X\begin{bmatrix}\frac{99+1}{2}\end{bmatrix}
@@ -412,7 +413,7 @@ Tip
 &amp; = X[50]
 \end{align}
 \tag{2}\]</span></span></p>
-<p>Therefore, at our 50th observation, we’ll find our median. Doing this from the Stem and Leaf plot in <a href="#sec-Vis">Section&nbsp;1</a> gives us the value of approximately (~) 20.9. However, with R, we can obtain a more precise figure using the <code>median(...)</code> function. For example:</p>
+<p>Therefore, at our 50th observation, we’ll find our median. Doing this from the Stem and Leaf plot in <a href="#sec-Vis">Section&nbsp;1</a> gives us the value of approximately (~) 29. However, with R, we can obtain a more precise figure using the <code>median(...)</code> function. For example:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -433,11 +434,11 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Calculating the median by hand for even data…</p>
-<p>The <span class="math inline">\(\mu\)</span> process above works well with an odd number of observations. However, it differences slightly when dealing with an even number of observations, where the equation becomes (<span class="math inline">\(\mu'\)</span>):</p>
+<p>The <span class="math inline">\(\mu\)</span> process above works well with an odd number of observations. However, it differs slightly when dealing with an even number of observations, where the equation becomes (<span class="math inline">\(\mu'\)</span>):</p>
 <p><span id="eq-3"><span class="math display">\[
 \mu' = \frac{X\begin{bmatrix}\frac{n}{2}\end{bmatrix}+X{\begin{bmatrix}\frac{n}{2}+1\end{bmatrix}}}{2}
 \tag{3}\]</span></span></p>
-<p>That is to say, you first need to find the divide your the number of your observation into two and add that value to your previous previous result with an additional unit. This is then divided into two. For 100 observations:</p>
+<p>That is to say, you first need to find the divide the number of your observation into two and add that value to your previous previous result with an additional unit. This is then divided into two. For 100 observations:</p>
 <p><span id="eq-4"><span class="math display">\[
 \begin{align}
 \mu' &amp; = \frac{X\begin{bmatrix}\frac{100}{2}\end{bmatrix}+X{\begin{bmatrix}\frac{100}{2}+1\end{bmatrix}}}{2}
@@ -499,7 +500,7 @@ n:                 99      99
 _______________________________________________</code></pre>
 </div>
 </div>
-<p>The results are a little more complex but consistent with Tukey’s notation <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">1977</a>)</span>, where he describes the process as <em>scratching down</em> numbers, to get a feel of what they like (ibid.). Here is single (*) is a one-digit leaf - a single decimal point - for the starting half of rounded numbers: <strong>.0 - .4</strong>; the (.) cover the remaining half of the rounded values: <strong>.5 - .9.</strong> these are the extreme columns are the sum totals towards the median of the data for each row of observations (left and right). Again, this gives a good indication distribution’s shape. Here, We can see the medians differ slightly for each vector. For ‘some_data’, the median is <code>median(some_data)</code>, for ‘more data’, <code>median(more_data)</code>. From the graphic, we learn that these figures can be found at around the 11th observation of the range of 25-29 (.) for ‘some_data’, while the median is located at 4th count of the of the range between 30 and 34 (*). Towards the bottom, are are the total number of observations for each variable.</p>
+<p>The results are a little more complex but consistent with Tukey’s notation <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">1977</a>)</span>, where he describes the process as <em>scratching down</em> numbers, to get a feel of what they are like (ibid.). Here is single (*) is a one-digit leaf - a single decimal point - for the starting half of rounded numbers: <strong>.0 - .4</strong>; the (.) cover the remaining half of the rounded values: <strong>.5 - .9.</strong> these are the column extremities and the sum totals of observations and are numbered to the far left and right. Again, this gives a good indication distribution’s shape. Here, We can see the medians differ slightly for each vector. For ‘some_data’, the median is <code>median(some_data)</code>, for ‘more data’, <code>median(more_data)</code>. From the graphic, we learn that these figures can be found at around the 11th observation of the range of 25-29 (.) for ‘some_data’, while the median is located at 4th count of the of the range between 30 and 34 (*). Towards the bottom, are the total number of observations for each variable.</p>
 </section>
 <section id="when-to-use-a-stem-leaf-plot" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="when-to-use-a-stem-leaf-plot"><span class="header-section-number">1.3</span> When to use a Stem &amp; Leaf plot</h2>
@@ -547,14 +548,14 @@ require(aplpack)</code></pre>
 <div id="fig-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Classical_Measures_files/figure-html/fig-1-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Positve and negative skews generated by random beta distributions. Median is red while the mean is shown by a blue dashed line</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;1: Positive and negative skews generated by random beta distributions. Median is red while the mean is shown by a blue dashed line</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <section id="gaussian-normal-distributions" class="level3" data-number="1.4.1">
 <h3 data-number="1.4.1" class="anchored" data-anchor-id="gaussian-normal-distributions"><span class="header-section-number">1.4.1</span> Gaussian normal distributions</h3>
-<p>A symmetric, bell-shaped distribution with a single peak. An example can be simulated using the <code>rnorm()</code> function. This function returns a random numerical vector with properties that form to a Gaussian normal distribution <a href="#fig-2">Figure&nbsp;2</a>.</p>
+<p>A symmetric, bell-shaped distribution, with a single peak. An example can be simulated using the <code>rnorm()</code> function. This function returns a random numerical vector with properties that form to a Gaussian normal distribution <a href="#fig-2">Figure&nbsp;2</a>.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -579,11 +580,11 @@ require(aplpack)</code></pre>
 </div>
 </div>
 </div>
-<p>Under these conditions you are able to apply a range of probability analyses, working with skew data posses limitations in this regard, where researchers often strive to convert their data to this distribution by either removing outliers or by transforming its values - a process discussed much later on.</p>
+<p>Under these conditions you are able to apply a range of probability analyses, working with skew data poses limitations in this regard, where researchers often strive to convert their data to this distribution by either removing outliers or by transforming its values - a process discussed much later on.</p>
 </section>
 <section id="dealing-with-outliers" class="level3" data-number="1.4.2">
 <h3 data-number="1.4.2" class="anchored" data-anchor-id="dealing-with-outliers"><span class="header-section-number">1.4.2</span> Dealing with outliers</h3>
-<p>Outliers in a variable are observations that are considered extreme. They are exceptionally high or exceptionally high relative to the rest of the data present, specifically the interquartile range hinges <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">Tukey 1977</a>)</span>. Conventionally, they can play a role in Centrality of a distribution, where removing them could aid in the reliability of your analysis. They can be conventionally detected by applying <a href="#eq-LO">Equation&nbsp;5</a> to find lower outliers and <a href="#eq-HO">Equation&nbsp;6</a> to find higher outliers.</p>
+<p>Outliers in a variable are observations that are considered extreme. They are exceptionally high (<span class="math inline">\(HO\)</span>) or exceptionally low (<span class="math inline">\(LO\)</span>) relative to the rest of the data present, specifically the interquartile range hinges <span class="citation" data-cites="tukey1977exploratory">(<a href="#ref-tukey1977exploratory" role="doc-biblioref">Tukey 1977</a>)</span>. Conventionally, they can play a role in Centrality of a distribution, where removing them could aid in the reliability of your analysis. They can be conventionally detected by applying <a href="#eq-LO">Equation&nbsp;5</a> to find lower outliers and <a href="#eq-HO">Equation&nbsp;6</a> to find higher outliers.</p>
 <p><span id="eq-LO"><span class="math display">\[
 LO = Q1 - (1.5 \times IQR)
 \tag{5}\]</span></span></p>
@@ -682,7 +683,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Remember that the <code>$</code> operator is used to access lists within a data frame. I works in similar way to square brackets <code>[]</code> that can also be used when slicing a data frame. The <code>$</code> cannot be used to slice a matrix.</p>
+<p>Remember that the <code>$</code> operator is used to access lists within a data frame. It works in similar way to square brackets <code>[]</code> that can also be used when slicing a data frame. The <code>$</code> cannot be used to slice a matrix.</p>
 <p>The <code>%in%</code> operator in R pushes code from one process to another. In the Thanet example above, the Christian data is being pushed into a concatenated list of outliers.</p>
 </div>
 </div>
@@ -732,7 +733,7 @@ Tip
 <p><span id="eq-tm"><span class="math display">\[
 \bar{x}_t = \frac{\sum_{i=p+1}^{n-p}x_i}{n-2p}
 \tag{7}\]</span></span></p>
-<p>In <a href="#eq-tm">Equation&nbsp;7</a>, <span class="math inline">\(p\)</span> refers to the portion. Where the we are generating an average for section of data where the last portion has been removed (<span class="math inline">\(n-p\)</span>); the indexing duly states that the starting point relative to the index is the original value plus the proportion. The result is a trimming of the variable.</p>
+<p>In <a href="#eq-tm">Equation&nbsp;7</a>, <span class="math inline">\(p\)</span> refers to the portion. Where the we are generating an average for a section of the data, the last portion has been removed (<span class="math inline">\(n-p\)</span>); the indexing duly states that the starting point relative to the index is the original value plus the proportion. The result is a trimming of the variable.</p>
 <p>To work out the estimate, the trimmed sample must be divided by the size of the trimmed sample from both ends: <span class="math inline">\(n-2p\)</span>.</p>
 <p>Calculating the trimmed mean is fairly straightforward in R by adding the <code>trim =</code> argument to the <code>mean(...)</code> function. Here the trim is the desired proportion. Entering a value of 0.25 will remove the top and bottom 25% of the data’s observations. Let’s try this with our Thanet data, this time looking at the number of Muslims.</p>
 <div class="cell">
@@ -757,15 +758,15 @@ Tip
 <p><span id="eq-5"><span class="math display">\[
 \sigma^2 = \frac{\sum(x_i-\bar{x})^2}{n-1}
 \tag{8}\]</span></span></p>
-<p>In essence, what we are doing is finding the total numerical distance of each observation within of a sample <span class="math inline">\(x\)</span> from the sample’s mean <span class="math inline">\(\bar{x}\)</span>. For our sample, we need to find the total sum of squares (<span class="math inline">\(TSS\)</span>, see <a href="#eq-6">Equation&nbsp;9</a>). The reason for the power function is to remove the negative signs that will return erroneous results.</p>
+<p>In essence, what we are doing is finding the total numerical distance of each observation within a sample of <span class="math inline">\(x\)</span> from the sample’s mean <span class="math inline">\(\bar{x}\)</span>. For our sample, we need to find the total sum of squares (<span class="math inline">\(TSS\)</span>, see <a href="#eq-6">Equation&nbsp;9</a>). The reason for the power function is to remove the negative signs that will return erroneous results.</p>
 <p><span id="eq-6"><span class="math display">\[
 TSS = \sum_{i=1}^{n}(x_i - \bar{x})^2
 \tag{9}\]</span></span></p>
-<p>The final stage of the equation (as shown in <a href="#eq-5">Equation&nbsp;8</a>) is to divide the observations by the number of observations in your sample, resulting in an average. Note the use of <span class="math inline">\(n-1\)</span> instead of just <span class="math inline">\(n\)</span>; this indicates the number of independent observations that are able to vary. A sample of 100 observations is able to vary up to its 99th observation where, at the 100th value, variance is lost. <span class="math inline">\(n-1\)</span> is referred to as the sample’s degree’s of freedom (<span class="math inline">\(\nu\)</span> or ‘df’).</p>
+<p>The final stage of the equation (as shown in <a href="#eq-5">Equation&nbsp;8</a>) is to divide the <span class="math inline">\(TSS\)</span> by the number of observations in your sample, resulting in an average. Note the use of <span class="math inline">\(n-1\)</span> instead of just <span class="math inline">\(n\)</span>; this indicates the number of independent observations that are able to vary. A sample of 100 observations is able to vary up to its 99th observation where, at the 100th value, variance is lost. <span class="math inline">\(n-1\)</span> is referred to as the sample’s degree’s of freedom (<span class="math inline">\(\nu\)</span> or ‘df’).</p>
 </section>
 <section id="standard-deviation-as-measure-of-spread" class="level3" data-number="1.5.2">
 <h3 data-number="1.5.2" class="anchored" data-anchor-id="standard-deviation-as-measure-of-spread"><span class="header-section-number">1.5.2</span> Standard deviation as measure of spread</h3>
-<p>While variance (<span class="math inline">\(\sigma^2\)</span>) gives us an indication of differences of values from the mean, the problem is that its result is too large to relate directly back to the original sample. To address this issue, we introduce a square root function to the overall equation so that <span class="math inline">\(\sigm^2\)</span> becomes <span class="math inline">\(\sigma\)</span>. The equation is as follows:</p>
+<p>While variance (<span class="math inline">\(\sigma^2\)</span>) gives us an indication of differences of values from the mean, the problem is that its result is too large to relate directly back to the original sample. To address this issue, we introduce a square root function to the overall equation so that <span class="math inline">\(\sigma^2\)</span> becomes <span class="math inline">\(\sigma\)</span>. The equation is as follows:</p>
 <p><span class="math display">\[
 \sigma = \sqrt\frac{\sum(x_i-\bar{x})^2}{n-1}
 \]</span></p>
@@ -803,15 +804,18 @@ TSS = \sum_{i=1}^{n}(x_i - \bar{x})^2
 </div>
 </div>
 </div>
-<p>Based on this example we can see that most of the standard deviation of our sample’s is ~0.08 on either side of the mean, giving us further insights regarding our data distribution in addition to there interquartile range, mode, mean, and medians.</p>
+<p>Based on this example we can see that most of the standard deviation of our sample’s is ~0.08 on either side of the mean (more precisely, <code>st_dev</code> = 0.093)), giving us further insights regarding our data distribution in addition to there interquartile range, mode, mean, and medians.</p>
 </section>
 </section>
-<section id="probability-functions" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="probability-functions"><span class="header-section-number">1.6</span> Probability functions</h2>
+<section id="confidence-intervals" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">1.6</span> Confidence intervals</h2>
+</section>
+<section id="probability-functions" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="probability-functions"><span class="header-section-number">1.7</span> Probability functions</h2>
 <p>Probability relates to the chance of something happening. When it comes to statistics, probability functions can tell us the likelihood of observing particular results from our data variable.</p>
 <p>Probability functions are most accurate when data is normally distributed. Eyeballing graphs or considering marginal differences between the mean, mode, and median can give an indication of normality, however, there are specific tests that can help us to readily identify whether or not a variable is normally distributed.</p>
-<section id="z-scores" class="level3" data-number="1.6.1">
-<h3 data-number="1.6.1" class="anchored" data-anchor-id="z-scores"><span class="header-section-number">1.6.1</span> Z-scores</h3>
+<section id="z-scores" class="level3" data-number="1.7.1">
+<h3 data-number="1.7.1" class="anchored" data-anchor-id="z-scores"><span class="header-section-number">1.7.1</span> Z-scores</h3>
 <p>A useful aid in probability analysis are Z standard scores (or Z-scores). In itself, a z-score is useful for calculating how many standard deviations an observation is from its sample mean. These are calculated by subtracting an obsevation (<span class="math inline">\(x\)</span>) from its sample mean (<span class="math inline">\(\mu\)</span>) and dividing the result by its the sample standard deviation (<span class="math inline">\(\sigma\)</span>) see <a href="#eq-z">Equation&nbsp;10</a>.</p>
 <p><span id="eq-z"><span class="math display">\[
 Z = \frac{x-\mu}{\sigma}
@@ -864,8 +868,8 @@ Quick note on user-defined functions
 </div>
 </div>
 </section>
-<section id="q-q-plots" class="level3" data-number="1.6.2">
-<h3 data-number="1.6.2" class="anchored" data-anchor-id="q-q-plots"><span class="header-section-number">1.6.2</span> Q-Q plots</h3>
+<section id="q-q-plots" class="level3" data-number="1.7.2">
+<h3 data-number="1.7.2" class="anchored" data-anchor-id="q-q-plots"><span class="header-section-number">1.7.2</span> Q-Q plots</h3>
 <p>In addition to histograms and KDE plots, Quantile-Quantile (plots) are able to indicate whether or not data is normally distributed. In essence, it is a 2-dimensional plot that compares observed quantiles (<span class="math inline">\(y\)</span>) with theoretical quantiles (<span class="math inline">\(\hat{y}\)</span>).</p>
 <p>Theoretical quantiles are derived from Z-scores for both your data and those found in an equivalently sized standard normal distribution. To calculate this you’ll need to work out the proportion for each observation’s Z-score. To do this, divide the values by the number of observations. As we’re dealing with variance, we subtract 1 from each half of the fraction <span class="math inline">\(p = \frac{x-1}{n-1}\)</span>. For demonstration purposes, let’s construct a data frame for the first observations noted above:</p>
 <div class="cell">
@@ -945,8 +949,10 @@ Quick note on user-defined functions
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>z_normal <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="at">p =</span> z_scores<span class="sc">$</span>Proportion, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> z_normal, <span class="at">y =</span> data, <span class="at">xlab =</span> <span class="st">"Theoretical Qauntiles"</span>, <span class="at">ylab =</span> <span class="st">"Observed Quantiles"</span>,</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Manually produced Q-Q plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Line of best fit</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> z_normal, <span class="at">y =</span> data, <span class="at">xlab =</span> <span class="st">"Theoretical Qauntiles"</span>, <span class="at">ylab =</span> <span class="st">"Observed Quantiles"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Manually produced Q-Q plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-7" class="quarto-figure quarto-figure-center anchored">
@@ -991,8 +997,8 @@ Quick note on user-defined functions
 </div>
 </div>
 </section>
-<section id="the-shapiro-wilk-test" class="level3" data-number="1.6.3">
-<h3 data-number="1.6.3" class="anchored" data-anchor-id="the-shapiro-wilk-test"><span class="header-section-number">1.6.3</span> The Shapiro-Wilk test</h3>
+<section id="the-shapiro-wilk-test" class="level3" data-number="1.7.3">
+<h3 data-number="1.7.3" class="anchored" data-anchor-id="the-shapiro-wilk-test"><span class="header-section-number">1.7.3</span> The Shapiro-Wilk test</h3>
 <p>A reliable way to test for normality prior to using probability functions is the Shapiro-Wilk test. For reference, it’s equation is as follows:</p>
 <p><span id="eq-shapiro"><span class="math display">\[
 W = \frac{\left( \sum_{i=1}^{n}a_i x_{(i)} \right )^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}
@@ -1000,7 +1006,7 @@ W = \frac{\left( \sum_{i=1}^{n}a_i x_{(i)} \right )^2}{\sum_{i=1}^{n}(x_i - \bar
 <p>An easy way of thinking about <a href="#eq-shapiro">Equation&nbsp;11</a>, is as a precise ‘fit’ coefficient statistic for a Q-Q plot. The top half of the equation squares the sum of normal value that has been matched against its ordered x equivalent. This is in turn divided by the sum of squares that returns the <span class="math inline">\(W\)</span> statistic.</p>
 <p>In essence, the <span class="math inline">\(W\)</span> statistic tells us how closely our distribution’s shape aligns to a normal distribution. Once can argue that a value that is &gt;0.5 can be considered <em>normal</em>, however, using this statistic alone will mean that a value of <span class="math inline">\(W = 1\)</span> will be the only confirmation of normalcy in the data distribution.</p>
 <p>Let’s go back to our value 0.5 (let’s call it <span class="math inline">\(W'\)</span>), and assume that we can see that the distribution appears normal by looking at either the distributions histogram or Q-Q plot, the only way we can confirm normality is by examining the likelihood of seeing this statistic against its critical value within a predetermined confidence interval. Consider ‘Table 2’ from the following web resource: <a href="https://real-statistics.com/statistics-tables/shapiro-wilk-table/" class="uri">https://real-statistics.com/statistics-tables/shapiro-wilk-table/</a>. For a sample with 10 observations, at 95% confidence (an alpha of 0.05), the critical value is ~0.842. As our value of <span class="math inline">\(W' &lt; W\)</span>, we conclude that our distribution does not conform to a normal distribution.</p>
-<p>We can easily perform this test in R using the <code>shapiro.test(...)</code> function. This function is particularly useful as it matches the resulting <span class="math inline">\(W\)</span> statistic against a probability value. However, the understanding is that if your p-value is less than a predetermined confidence interval’s , then the null-hypothesis is rejected where normalcy cannot be confirmed. If it is above the , then we can assume normalcy and consider the data as parametric.</p>
+<p>We can easily perform this test in R using the <code>shapiro.test(...)</code> function. This function is particularly useful as it matches the resulting <span class="math inline">\(W\)</span> statistic against a probability value. However, the understanding is that if your p-value is less than a predetermined confidence interval’s <span class="math inline">\(\alpha\)</span>, then the null-hypothesis is rejected where normalcy cannot be confirmed. If it is above the <span class="math inline">\(\alpha\)</span>, then we can assume normalcy and consider the data as parametric.</p>
 <p>Let’s apply a Shapiro-Wilk test to our Thanet data (Christians).</p>
 <div class="cell">
 <details>
@@ -1029,7 +1035,7 @@ data:  Thanet_NO$Muslim
 W = 0.84917, p-value = 1.744e-07</code></pre>
 </div>
 </div>
-<p>Again, the <span class="math inline">\(W\)</span> value suggests a normal shape to our distribution, but the p-value is less than an of 0.05 (0.0000001743786). We conclude that the data here is not normally distributed (or nonparametric).</p>
+<p>Again, the <span class="math inline">\(W\)</span> value suggests a normal shape to our distribution, but the p-value is less than an <span class="math inline">\(\alpha\)</span> of 0.05 (0.0000001743786). We conclude that the data here is not normally distributed (or nonparametric).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1044,15 +1050,15 @@ Note
 </div>
 </div>
 </section>
-<section id="the-anderson-darling-test" class="level3" data-number="1.6.4">
-<h3 data-number="1.6.4" class="anchored" data-anchor-id="the-anderson-darling-test"><span class="header-section-number">1.6.4</span> The Anderson-Darling test</h3>
+<section id="the-anderson-darling-test" class="level3" data-number="1.7.4">
+<h3 data-number="1.7.4" class="anchored" data-anchor-id="the-anderson-darling-test"><span class="header-section-number">1.7.4</span> The Anderson-Darling test</h3>
 <p>If you found yourself in a situation where you are not fully convinced by the results of your Shapiro-Wilk test, an alternative is the Anderson-Darling test.</p>
 <p>This goodness-of-fit test is based on mathematical integration for two distributions:</p>
 <p><span id="eq-AD"><span class="math display">\[
-AD = n\int_{\infty}^{\infty}\frac{\left ( F_n(x)-F(x) \right )^2}{F(x) \left ( 1 -F(x) \right )} dF(x)
+AD = n\int_{- \infty}^{\infty}\frac{\left ( F_n(x)-F(x) \right )^2}{F(x) \left ( 1 -F(x) \right )} dF(x)
 \tag{12}\]</span></span></p>
-<p>in <a href="#eq-AD">Equation&nbsp;12</a>, <span class="math inline">\(F_n(x)\)</span> is the empirical distribution and <span class="math inline">\(F(x)\)</span> is the reference distribution <span class="citation" data-cites="anderson1954test">(<a href="#ref-anderson1954test" role="doc-biblioref">Anderson and Darling 1954</a>)</span>. Effectively, for an number of observations along a distribution and its respective cumulative equivalent, you are 1) subtracting the values of the reference distribution from your observed distribution and dividing the value by the reference distribution (multiplied by its degrees of freedom). This result is then multiplied by degrees of freedom for your number of observations <span class="math inline">\(dF(x)\)</span>. Again, this statistic is compared against a critical value to determine normalcy. If the value is above the critical value, normalcy can be assumed; if below, then normality can be rejected.</p>
-<p>Helpfully, there is a package in R that does the hard work for us called <code>nortest</code>. Below is how it can be applied to confirm the non-normal distribution of Thanet’s muslim population.</p>
+<p>In <a href="#eq-AD">Equation&nbsp;12</a>, <span class="math inline">\(F_n(x)\)</span> is the empirical distribution and <span class="math inline">\(F(x)\)</span> is the reference distribution <span class="citation" data-cites="anderson1954test">(<a href="#ref-anderson1954test" role="doc-biblioref">Anderson and Darling 1954</a>)</span>. Effectively, for an number of observations along a distribution and its respective cumulative equivalent, you are 1) subtracting the values of the reference distribution from your observed distribution and 2) dividing the value by the reference distribution (multiplied by its degrees of freedom). This result is then multiplied by degrees of freedom for your number of observations <span class="math inline">\(dF(x)\)</span>. Again, this statistic is compared against a critical value to determine normalcy. If the observed value is above the critical value, normalcy can be assumed; if below, then normality can be rejected.</p>
+<p>Helpfully, there is a package in R that does the hard work for us called <code>nortest</code>. Below is how its <code>ad.test(...)</code> function can be applied to confirm the non-normal distribution of Thanet’s muslim population.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -1068,7 +1074,7 @@ data:  Thanet_NO$Muslim
 A = 3.6933, p-value = 2.673e-09</code></pre>
 </div>
 </div>
-<p>In the result, p-value is interpreted in the same way as for a Shapiro-Wilk test. That is, as it is below an <span class="math inline">\(\alpha\)</span> of 0.05, we conclude that the difference between the distributions is statistically significant, where we can conlcude that the distribution is not normal.</p>
+<p>In the result, p-value is interpreted in the same way as for a Shapiro-Wilk test. That is, as it is below an <span class="math inline">\(\alpha\)</span> of 0.05, we conclude that the difference between the distributions is statistically significant, where the distribution is non-normal.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1083,9 +1089,9 @@ Note
 </div>
 </div>
 </section>
-<section id="the-kolgomorov-smirnov-test" class="level3" data-number="1.6.5">
-<h3 data-number="1.6.5" class="anchored" data-anchor-id="the-kolgomorov-smirnov-test"><span class="header-section-number">1.6.5</span> The Kolgomorov-Smirnov Test</h3>
-<p>An alternative to the Anderson-Darling test is the Kolmogorov-Smirnov test. The advantage here is that you are able to compare your distribution to other theoretical data distribution including the normal distribution, Poisson distribution and binomial distribution.</p>
+<section id="the-kolgomorov-smirnov-test" class="level3" data-number="1.7.5">
+<h3 data-number="1.7.5" class="anchored" data-anchor-id="the-kolgomorov-smirnov-test"><span class="header-section-number">1.7.5</span> The Kolgomorov-Smirnov Test</h3>
+<p>An alternative to the Anderson-Darling test is the Kolmogorov-Smirnov test. The advantage here is that you are able to compare your distribution to other theoretical data distributions including the normal distribution, Poisson distribution and binomial distribution.</p>
 <p>This is particularly powerful when determining your instruments for analysis and overall methodical approach going forward.</p>
 <p>The critical statistic for this test is <span class="math inline">\(D\)</span> (distance), indicating how far your sample is from another distribution. It is calculated in the following way:</p>
 <p><span id="eq-D"><span class="math display">\[
